@@ -1,0 +1,33 @@
+{
+  "name": "dalat-trip",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Nhân Nguyễn",
+  "description": "Sổ tay hành trình nhóm Đà Lạt 3N2Đ: lịch trình, đề xuất đổi lịch, duyệt, hoàn thành và quỹ chi phí.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "emulators": "firebase emulators:start --only auth,firestore --project demo-dalat-trip"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "6.1.0",
+    "@dnd-kit/sortable": "8.0.0",
+    "@dnd-kit/utilities": "3.2.2",
+    "firebase": "^10.14.1",
+    "leaflet": "^1.9.4",
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.12",
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "sass": "1.77.8",
+    "typescript": "5.5.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}

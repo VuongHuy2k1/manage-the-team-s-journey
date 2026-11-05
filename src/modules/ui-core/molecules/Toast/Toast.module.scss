@@ -1,0 +1,30 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(calc(100% - 32px), 448px);
+  z-index: 60;
+  background: $ink;
+  color: $on-primary;
+  border-radius: $radius-md;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  font-size: 14px;
+  box-shadow: 0 10px 24px rgba(20, 33, 61, 0.3);
+  animation: rise 0.2s ease-out;
+}
+
+.icon { color: #5ddbb4; }
+.message { flex: 1; min-width: 0; }
+.action { @include reset-button; @include focus-ring; font-weight: 700; color: #ffc266; min-height: 32px; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}

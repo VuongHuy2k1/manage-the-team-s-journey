@@ -1,0 +1,15 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.card { background: $surface; border: 1px solid $line; border-radius: $radius-lg; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.highlight { border: 1.5px solid $primary; }
+.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.titles { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.title { font-size: 15px; font-weight: 700; }
+.meta { font-size: 12px; color: $muted; }
+.cost { @include mono; flex: none; font-size: 12px; font-weight: 700; background: $accent-soft; color: $warn-ink; padding: 3px 8px; border-radius: 6px; }
+.reason { margin: 0; font-size: 13px; background: $bg; border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
+.changes { display: flex; flex-direction: column; gap: 6px; }
+.votes { border-top: 1px solid $line-soft; padding-top: 10px; }
+.conflict { font-size: 12px; color: $success-ink; display: flex; gap: 6px; align-items: center; }
+.conflictBad { color: $danger; }

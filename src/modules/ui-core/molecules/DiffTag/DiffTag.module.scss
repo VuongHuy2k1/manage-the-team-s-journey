@@ -1,0 +1,7 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.tag { @include mono; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 6px; white-space: nowrap; }
+.over { background: var(--c-food-bg); color: $warn-ink; }
+.under { background: var(--c-place-bg); color: $success-ink; }
+.even { background: $line-soft; color: $muted; }

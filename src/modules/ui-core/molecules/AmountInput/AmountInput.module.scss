@@ -1,0 +1,9 @@
+@use 'tokens' as *;
+
+.row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  > :first-child { flex: 1; }
+}

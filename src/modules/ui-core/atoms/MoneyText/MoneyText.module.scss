@@ -1,0 +1,11 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.money { @include mono; white-space: nowrap; }
+.default { color: inherit; }
+.muted { color: $muted; }
+.danger { color: $danger; }
+.success { color: $success-ink; }
+.warn { color: $warn-ink; }
+.inverse { color: $on-primary; }
+.strike { text-decoration: line-through; }

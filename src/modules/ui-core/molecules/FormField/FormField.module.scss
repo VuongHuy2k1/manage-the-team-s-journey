@@ -1,0 +1,8 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.head { display: flex; justify-content: space-between; align-items: center; gap: $space-2; }
+.label { @include label-caps; }
+.hint { font-size: 13px; color: $ink; }
+.error { font-size: 13px; color: $danger; }

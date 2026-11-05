@@ -1,0 +1,16 @@
+@use 'tokens' as *;
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.select {
+  width: 100%;
+  min-height: $touch;
+  padding: 10px 12px;
+  border: 1px solid $line;
+  border-radius: $radius-md;
+  background: $surface;
+  color: $ink;
+  font-size: 15px;
+}
+.addressRow { display: flex; gap: 6px; > :first-child { flex: 1; } }
+.pinned { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; color: $success-ink; font-size: 12px; }
+.unpin { font: inherit; background: none; border: 0; padding: 0 0 0 6px; color: $muted; text-decoration: underline; cursor: pointer; }

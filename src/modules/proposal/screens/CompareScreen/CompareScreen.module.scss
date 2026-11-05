@@ -1,0 +1,17 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.main { @include gutter; flex: 1; padding-top: 14px; padding-bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
+.bar {
+  @include gutter;
+  position: sticky;
+  bottom: 0;
+  background: $surface;
+  border-top: 1px solid $line;
+  padding-top: 12px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.note { font-size: 12px; color: $muted; }

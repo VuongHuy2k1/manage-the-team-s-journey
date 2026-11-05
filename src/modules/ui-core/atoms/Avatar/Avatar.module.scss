@@ -1,0 +1,15 @@
+@use 'tokens' as *;
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border-radius: 50%;
+  color: #14213d;
+  font-weight: 700;
+}
+
+.img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.ring { box-shadow: 0 0 0 2px $surface; }
+.selected { box-shadow: 0 0 0 3px $surface, 0 0 0 5px $primary; }

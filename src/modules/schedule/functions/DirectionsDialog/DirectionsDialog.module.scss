@@ -1,0 +1,20 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.place { color: $ink; }
+.address { margin: 0; font-size: 14px; }
+.note { margin: 0; font-size: 12px; color: $muted; }
+.go {
+  @include focus-ring;
+  min-height: 50px;
+  border-radius: $radius-md;
+  background: $primary;
+  color: $on-primary;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0 16px;
+}

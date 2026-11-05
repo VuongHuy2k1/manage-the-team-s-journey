@@ -1,0 +1,20 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.heading { font-size: 17px; font-weight: 800; }
+.fund { border: 1.5px solid $line; border-radius: $radius-md; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.people { display: flex; flex-wrap: wrap; gap: 6px; }
+.person {
+  @include reset-button;
+  @include focus-ring;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 52px;
+  font-size: 11px;
+  color: $muted;
+  border-radius: $radius-sm;
+  padding: 4px;
+  &[aria-pressed='true'] { color: $ink; font-weight: 700; }
+}

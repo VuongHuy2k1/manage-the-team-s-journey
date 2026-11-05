@@ -1,0 +1,5 @@
+@use 'tokens' as *;
+
+.form { display: flex; flex-direction: column; gap: 14px; }
+.email { margin: 0; font-size: 13px; color: $muted; b { color: $ink; font-weight: 600; } }
+.error { margin: 0; font-size: 13px; color: $danger; }

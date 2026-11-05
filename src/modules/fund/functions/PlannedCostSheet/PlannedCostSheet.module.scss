@@ -1,0 +1,5 @@
+@use 'tokens' as *;
+
+.heading { font-size: 17px; font-weight: 800; }
+.hint { margin: 0; font-size: 13px; color: $muted; }
+.actions { display: flex; gap: 8px; }

@@ -1,0 +1,38 @@
+@use 'tokens' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--c-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fade 0.15s ease-out;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 420px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  background: $surface;
+  border-radius: $radius-xl;
+  padding: 20px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.head { display: flex; gap: 12px; align-items: center; }
+.icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
+.primary { background: $primary-soft; color: $primary; }
+.success { background: var(--c-place-bg); color: $success; }
+.warn { background: $accent-soft; color: $warn-ink; }
+.titles { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.title { font-size: 18px; font-weight: 800; }
+.subtitle { font-size: 13px; color: $muted; }
+.actions { display: flex; gap: 8px; > :last-child { flex: 1; } }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }

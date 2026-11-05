@@ -1,0 +1,12 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.head { @include reset-button; @include focus-ring; width: 100%; display: flex; flex-direction: column; gap: 6px; text-align: left; border-radius: $radius-md; }
+.top { display: flex; align-items: center; gap: 8px; }
+.title { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; }
+.count { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: $radius-pill; background: $accent-soft; color: #8a4500; white-space: nowrap; }
+.done { background: var(--c-place-bg); color: $success-ink; }
+.chevron { color: $subtle; transform: rotate(-90deg); transition: transform 0.15s; }
+.open { transform: rotate(90deg); }
+.meta { font-size: 12px; color: $muted; }
+.note { font-size: 12px; color: $ink; background: $bg; border-radius: 8px; padding: 6px 8px; }

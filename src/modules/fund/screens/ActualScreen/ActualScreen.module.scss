@@ -1,0 +1,18 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.main { @include gutter; flex: 1; padding-top: 14px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 12px; }
+.total { background: $surface; border: 1px solid $line; border-radius: $radius-lg; padding: 14px; display: flex; flex-direction: column; gap: 4px; }
+.totalLabel { @include label-caps; }
+.totalPer { font-size: 13px; color: $muted; }
+.split { margin-top: 8px; padding-top: 10px; border-top: 1px solid $line-soft; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+  > div { display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+  span:first-child { font-size: 11px; color: $muted; } }
+.compare { margin-top: 6px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: $muted; }
+.card { background: $surface; border: 1px solid $line; border-radius: $radius-lg; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; }
+.cardHead { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid $line-soft; padding-bottom: 8px; }
+.cardTitle { margin: 0; font-size: 15px; font-weight: 800; }
+.cardSum { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.list { list-style: none; margin: 0; padding: 0; > li + li { border-top: 1px solid $line-soft; } }
+.hint, .empty { margin: 0; font-size: 12px; color: $muted; }
+.empty { font-size: 13px; }

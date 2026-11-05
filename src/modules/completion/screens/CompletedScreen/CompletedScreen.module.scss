@@ -1,0 +1,7 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.main { @include gutter; flex: 1; padding-top: 12px; padding-bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-size: 12px; background: $surface; border: 1px solid $line; border-radius: $radius-pill; padding: 6px 10px; }
+.chipWarn { font-size: 12px; background: $accent-soft; color: #5a2e00; border-radius: $radius-pill; padding: 6px 10px; }

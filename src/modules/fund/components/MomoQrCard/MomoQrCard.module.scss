@@ -1,0 +1,33 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+$momo: #a50064;
+
+.card { background: $surface; border: 1px solid $line; border-radius: $radius-lg; padding: 12px 14px; display: flex; gap: 12px; align-items: center; }
+.qr { width: 112px; height: 112px; flex: none; border-radius: $radius-md; border: 2px solid $momo; padding: 6px; display: flex; align-items: center; justify-content: center; background: #fff; }
+.qrButton { @include reset-button; @include focus-ring; position: relative; width: 100%; height: 100%; cursor: zoom-in; border-radius: $radius-sm; }
+.qrImg { width: 100%; height: 100%; object-fit: contain; display: block; }
+.zoom { position: absolute; right: -4px; bottom: -4px; width: 22px; height: 22px; border-radius: 50%; background: $momo; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px #fff; }
+.qrEmpty { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: $muted; text-align: center; }
+.info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.brand { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: $momo; }
+.name { font-size: 14px; font-weight: 700; }
+.phone { @include mono; font-size: 13px; }
+.line { font-size: 12px; color: $muted; b { color: $ink; } }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.fundLink {
+  @include focus-ring;
+  margin-top: 4px;
+  align-self: flex-start;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: $momo;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

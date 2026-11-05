@@ -1,0 +1,101 @@
+rules_version = '2';
+
+// Quy tắc bảo mật Firestore cho Sổ tay hành trình.
+// Dán toàn bộ file này vào Firebase Console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Mã nhóm trưởng: không ai đọc/ghi được từ app, chỉ rules dùng để so sánh
+    match /secrets/{docId} {
+      allow read, write: if false;
+    }
+
+    match /trips/{tripId} {
+      function signedIn() {
+        return request.auth != null;
+      }
+      function memberPath(uid) {
+        return /databases/$(database)/documents/trips/$(tripId)/members/$(uid);
+      }
+      function leaderPath(uid) {
+        return /databases/$(database)/documents/trips/$(tripId)/leaders/$(uid);
+      }
+      function isMember() {
+        return signedIn()
+          && exists(memberPath(request.auth.uid))
+          && get(memberPath(request.auth.uid)).data.removed == false;
+      }
+      function isLeader() {
+        return isMember() && exists(leaderPath(request.auth.uid));
+      }
+      function changed() {
+        return request.resource.data.diff(resource.data).affectedKeys();
+      }
+
+      // Dữ liệu chung: lịch, phiên bản, yêu cầu, hoàn thành, quỹ
+      allow read: if isMember();
+      allow create: if isLeader();
+      // Thành viên chỉ được gửi yêu cầu / bình chọn / báo xong mốc; còn lại chỉ nhóm trưởng
+      allow update: if isLeader()
+        || (isMember() && changed().hasOnly(['requests', 'pendingCompletions', 'updatedAt']));
+      allow delete: if false;
+
+      match /members/{uid} {
+        function validAvatar() {
+          return !('avatar' in request.resource.data)
+            || request.resource.data.avatar == null
+            || (request.resource.data.avatar is string && request.resource.data.avatar.size() < 300000);
+        }
+        function validName() {
+          return request.resource.data.name is string
+            && request.resource.data.name.size() > 0
+            && request.resource.data.name.size() <= 40;
+        }
+
+        allow read: if isMember() || (signedIn() && request.auth.uid == uid);
+
+        // Tự vào nhóm với vai trò thành viên (đã bị xoá thì không vào lại được vì document vẫn còn)
+        allow create: if signedIn() && request.auth.uid == uid
+          && request.resource.data.role == 'member'
+          && request.resource.data.removed == false
+          && request.resource.data.email is string
+          && validName() && validAvatar();
+
+        allow update: if
+          // Tự sửa tên, ảnh, màu
+          (signedIn() && request.auth.uid == uid && resource.data.removed == false
+            && changed().hasOnly(['name', 'avatar', 'color']) && validName() && validAvatar())
+          // Nhận quyền nhóm trưởng: chỉ khi document leaders/{uid} được tạo cùng lúc (đã qua kiểm tra mã)
+          || (signedIn() && request.auth.uid == uid && resource.data.removed == false
+            && changed().hasOnly(['role']) && request.resource.data.role == 'leader'
+            && existsAfter(leaderPath(uid)))
+          // Nhóm trưởng xoá / khôi phục người khác
+          || (isLeader() && request.auth.uid != uid
+            && changed().hasOnly(['removed', 'removedAt', 'removedBy']));
+
+        allow delete: if false;
+      }
+
+      match /leaders/{uid} {
+        allow read: if signedIn() && request.auth.uid == uid;
+        // Mã nhập phải trùng với secrets/leader.passcode
+        allow create: if signedIn() && request.auth.uid == uid
+          && exists(memberPath(uid))
+          && get(memberPath(uid)).data.removed == false
+          && request.resource.data.passcode == get(/databases/$(database)/documents/secrets/leader).data.passcode;
+        allow update, delete: if false;
+      }
+
+      // Bản nháp riêng từng người
+      match /drafts/{uid} {
+        allow read, write: if isMember() && request.auth.uid == uid;
+      }
+
+      // Vị trí: cả nhóm xem được, mỗi người chỉ ghi vị trí của mình
+      match /locations/{uid} {
+        allow read: if isMember();
+        allow write: if isMember() && request.auth.uid == uid;
+      }
+    }
+  }
+}

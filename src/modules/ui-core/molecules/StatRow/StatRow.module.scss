@@ -1,0 +1,8 @@
+@use 'tokens' as *;
+
+.row { display: flex; justify-content: space-between; align-items: center; gap: $space-3; font-size: 13px; }
+.label { min-width: 0; }
+.value { flex: none; text-align: right; }
+.strong { font-weight: 700; .value { font-size: 15px; } }
+.divider { border-top: 1px solid $line-soft; padding-top: 6px; }
+.success { background: $success-soft; color: $success-ink; border-radius: 10px; padding: 8px 10px; font-weight: 700; }

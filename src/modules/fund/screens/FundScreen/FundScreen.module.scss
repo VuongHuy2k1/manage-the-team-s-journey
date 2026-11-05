@@ -1,0 +1,4 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.main { @include gutter; flex: 1; padding-top: 12px; padding-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }

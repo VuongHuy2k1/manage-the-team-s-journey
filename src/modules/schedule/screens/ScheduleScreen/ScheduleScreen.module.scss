@@ -1,0 +1,19 @@
+@use 'tokens' as *;
+
+.headBottom { display: flex; flex-direction: column; gap: 10px; }
+.summary { margin: 0; font-size: 13px; color: $on-primary-soft; }
+.row { display: inline-flex; gap: 6px; align-items: center; }
+
+%notice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border-radius: $radius-md;
+  padding: 10px 12px;
+  font-size: 13px;
+  text-decoration: none;
+}
+.noticeWarn { @extend %notice; background: $accent-soft; color: #5a2e00; }
+.noticeAction { font-weight: 700; color: $warn-ink; }
+.noticeDone { @extend %notice; background: $success-soft; color: $success-ink; font-weight: 600; }

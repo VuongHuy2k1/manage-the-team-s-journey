@@ -1,0 +1,26 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.card {
+  @include reset-button;
+  @include focus-ring;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: $surface;
+  border: 1.5px solid $line;
+  border-radius: $radius-lg;
+  text-align: left;
+  transition: border-color 0.15s, transform 0.1s;
+  &:hover { border-color: $primary; }
+  &:active { transform: scale(0.99); }
+}
+.icon { width: 52px; height: 52px; border-radius: 16px; background: $primary-soft; color: $primary; display: flex; align-items: center; justify-content: center; flex: none; }
+.text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.titleRow { display: flex; align-items: center; gap: 8px; }
+.title { font-size: 17px; font-weight: 800; }
+.tag { font-size: 11px; font-weight: 700; background: $accent-soft; color: #8a4500; padding: 2px 7px; border-radius: 6px; }
+.desc { font-size: 13px; color: $muted; line-height: 1.4; }
+.arrow { color: $subtle; }

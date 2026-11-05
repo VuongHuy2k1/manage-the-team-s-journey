@@ -1,0 +1,8 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.main { @include gutter; flex: 1; padding-top: 14px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 14px; }
+.note { margin: 0; font-size: 13px; line-height: 1.5; color: $ink; }
+.options { display: flex; flex-direction: column; gap: 8px; }
+.hint { margin: 0; font-size: 12px; color: $muted; }
+.success { display: flex; gap: 8px; align-items: center; background: $success-soft; color: $success-ink; border-radius: $radius-md; padding: 10px 12px; font-size: 13px; font-weight: 700; }

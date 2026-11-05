@@ -1,0 +1,4 @@
+@use 'tokens' as *;
+
+.heading { font-size: 17px; font-weight: 800; }
+.hint { margin: 0; font-size: 13px; background: $accent-soft; color: #5a2e00; border-radius: 10px; padding: 10px 12px; }

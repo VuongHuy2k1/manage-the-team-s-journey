@@ -1,0 +1,5 @@
+@use 'tokens' as *;
+
+.panel { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.summary { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.buttons { display: flex; gap: 6px; }

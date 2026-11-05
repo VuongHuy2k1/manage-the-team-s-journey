@@ -1,0 +1,31 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.button {
+  @include reset-button;
+  @include focus-ring;
+  width: $touch;
+  height: $touch;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+
+  &:hover .circle { border-color: $success; background: $success-soft; }
+}
+
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid $subtle;
+  background: $surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+}
+
+.checked { background: $success; border-color: $success; color: $on-primary; }
+.pending { border-style: dashed; border-color: $accent; color: $accent; }

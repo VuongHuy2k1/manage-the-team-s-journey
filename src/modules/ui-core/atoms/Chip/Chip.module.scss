@@ -1,0 +1,17 @@
+@use 'tokens' as *;
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: $radius-pill;
+  white-space: nowrap;
+}
+
+.food { background: var(--c-food-bg); color: var(--c-food-ink); }
+.place { background: var(--c-place-bg); color: var(--c-place-ink); }
+.move { background: var(--c-move-bg); color: var(--c-move-ink); }
+.rest { background: var(--c-rest-bg); color: var(--c-rest-ink); }
+.neutral { background: $line-soft; color: $muted; }

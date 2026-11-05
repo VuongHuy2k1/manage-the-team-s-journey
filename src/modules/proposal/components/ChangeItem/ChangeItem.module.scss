@@ -1,0 +1,13 @@
+@use 'tokens' as *;
+
+.compact { display: flex; gap: 10px; align-items: center; font-size: 13px; }
+.compactText { flex: 1; min-width: 0; }
+.muted { color: $muted; }
+
+.card { background: $surface; border: 1px solid $line; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.head { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.title { font-size: 14px; font-weight: 700; }
+.diff { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; }
+.before { color: $muted; text-decoration: line-through; }
+.after { font-weight: 600; }
+.arrow { color: $subtle; }

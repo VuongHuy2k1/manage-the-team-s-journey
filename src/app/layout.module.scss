@@ -1,0 +1,16 @@
+@use 'tokens' as *;
+
+/* Ưu tiên điện thoại: một cột tối đa 480px, căn giữa trên màn hình lớn */
+.app {
+  max-width: $app-max;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: $bg;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (min-width: 520px) {
+  .app { box-shadow: 0 0 0 1px $line, 0 20px 60px rgba(20, 33, 61, 0.08); }
+}

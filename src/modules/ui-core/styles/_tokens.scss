@@ -1,0 +1,42 @@
+// Màu thương hiệu: xanh dương + cam (theo logo nhóm)
+$primary: var(--c-primary);
+$primary-strong: var(--c-primary-strong);
+$primary-soft: var(--c-primary-soft);
+$accent: var(--c-accent);
+$accent-soft: var(--c-accent-soft);
+$accent-ink: var(--c-accent-ink);
+$success: var(--c-success);
+$success-soft: var(--c-success-soft);
+$success-ink: var(--c-success-ink);
+$danger: var(--c-danger);
+$danger-soft: var(--c-danger-soft);
+$warn-ink: var(--c-warn-ink);
+
+$bg: var(--c-bg);
+$surface: var(--c-surface);
+$ink: var(--c-ink);
+$muted: var(--c-muted);
+$line: var(--c-line);
+$line-soft: var(--c-line-soft);
+$subtle: var(--c-subtle);
+$on-primary: var(--c-on-primary);
+$on-primary-soft: var(--c-on-primary-soft);
+
+$font-body: var(--font-body);
+$font-mono: var(--font-mono);
+
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 22px;
+$radius-pill: 999px;
+
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+
+$touch: 44px;
+$app-max: 480px;

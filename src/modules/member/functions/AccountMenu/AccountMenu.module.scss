@@ -1,0 +1,18 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.trigger {
+  @include focus-ring;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: $touch;
+  padding: 0 10px 0 4px;
+  border-radius: $radius-pill;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.onBrand { background: rgba(255, 255, 255, 0.16); color: $on-primary; }
+.onLight { background: $line-soft; color: $ink; }
+.name { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

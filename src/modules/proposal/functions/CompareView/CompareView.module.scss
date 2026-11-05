@@ -1,0 +1,14 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.view { display: flex; flex-direction: column; gap: 12px; }
+.empty { margin: 0; padding: 20px 16px; background: $surface; border: 1px dashed $subtle; border-radius: $radius-lg; color: $muted; }
+.side { background: $surface; border: 1px solid $line; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.dayTitle { font-size: 14px; font-weight: 700; }
+.columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.column { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.colHead { @include label-caps; }
+.line { font-size: 12px; padding: 4px 6px; border-radius: 6px; display: flex; gap: 6px; min-width: 0; }
+.lineOld { background: $danger-soft; }
+.lineNew { background: var(--c-place-bg); }
+.time { @include mono; color: var(--c-primary-ink); flex: none; }

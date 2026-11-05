@@ -1,0 +1,21 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.center { @include gutter; flex: 1; min-height: 70dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.title { margin: 0; font-size: 17px; font-weight: 800; }
+.text { margin: 0; max-width: 32ch; color: $muted; font-size: 14px; }
+.help { margin-top: 12px; text-align: left; background: $surface; border: 1px solid $line; border-radius: $radius-lg; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; max-width: 360px; }
+.list { margin: 0; padding-left: 18px; font-size: 13px; color: $muted; display: flex; flex-direction: column; gap: 4px; }
+.actions { display: flex; gap: 8px; }
+.error { margin: 0; max-width: 34ch; font-size: 13px; color: $danger; }
+.syncBar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #fde4e4;
+  color: #7a1414;
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 10px max(16px, env(safe-area-inset-left, 0px));
+  b { display: block; }
+}

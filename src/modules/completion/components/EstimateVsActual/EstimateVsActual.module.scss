@@ -1,0 +1,13 @@
+@use 'tokens' as *;
+
+.card { background: $surface; color: $ink; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cell { display: flex; flex-direction: column; gap: 2px; }
+.label { font-size: 12px; color: $muted; }
+.bars { display: flex; flex-direction: column; gap: 5px; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.over { color: $warn-ink; font-weight: 700; }
+.under { color: $success-ink; font-weight: 700; }
+.even { color: $muted; font-weight: 700; }
+.pct { color: $muted; font-weight: 500; }
+.remaining { color: $muted; }

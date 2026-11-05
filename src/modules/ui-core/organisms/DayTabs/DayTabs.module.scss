@@ -1,0 +1,24 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.tabs { display: flex; gap: $space-2; }
+
+.tab {
+  @include reset-button;
+  @include focus-ring;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: $radius-pill;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.onBrand .tab { border: 1px solid rgba(255, 255, 255, 0.35); color: $on-primary; }
+.onBrand .on { background: $surface; border-color: $surface; color: $primary; }
+.onLight .tab { border: 1px solid $line; background: $surface; color: $ink; }
+.onLight .on { background: $primary; border-color: $primary; color: $on-primary; }
+
+.dot { width: 7px; height: 7px; border-radius: 50%; background: $accent; }

@@ -1,0 +1,94 @@
+:root {
+  --c-primary: #1e55d8;
+  --c-primary-strong: #1a47b8;
+  --c-primary-soft: #e3ecff;
+  --c-primary-ink: #1f4fbf;
+  --c-accent: #ff8a1f;
+  --c-accent-soft: #fff1dc;
+  --c-accent-ink: #3a1f00;
+  --c-warn-ink: #a14600;
+  --c-success: #0e7c60;
+  --c-success-soft: #e6f7f1;
+  --c-success-ink: #0f6b57;
+  --c-danger: #a11d1d;
+  --c-danger-soft: #fde4e4;
+
+  --c-bg: #f3f6fd;
+  --c-surface: #ffffff;
+  --c-ink: #14213d;
+  --c-muted: #56627e;
+  --c-line: #dce3f2;
+  --c-line-soft: #e8edf7;
+  --c-subtle: #a3aec7;
+  --c-on-primary: #ffffff;
+  --c-on-primary-soft: #eaf0ff;
+  --c-focus: #ffa31a;
+  --c-scrim: rgba(20, 33, 61, 0.55);
+
+  --c-food-bg: #ffebd6;
+  --c-food-ink: #a14600;
+  --c-place-bg: #ddf4ee;
+  --c-place-ink: #0f6b57;
+  --c-move-bg: #e3ecff;
+  --c-move-ink: #1f4fbf;
+  --c-rest-bg: #eee8fb;
+  --c-rest-ink: #5b3fa8;
+
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--c-primary);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  text-wrap: balance;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
