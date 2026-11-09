@@ -14,6 +14,6 @@
   font-size: 13px;
   text-decoration: none;
 }
-.noticeWarn { @extend %notice; background: $accent-soft; color: #5a2e00; }
+.noticeWarn { @extend %notice; background: $accent-soft; color: $accent-ink; }
 .noticeAction { font-weight: 700; color: $warn-ink; }
 .noticeDone { @extend %notice; background: $success-soft; color: $success-ink; font-weight: 600; }

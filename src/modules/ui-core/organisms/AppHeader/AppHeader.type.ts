@@ -12,6 +12,8 @@ export interface AppHeaderProps {
   aside?: ReactNode;
   /** Hàng dưới tiêu đề: tab ngày, thẻ số dư… */
   children?: ReactNode;
-  /** Hoạ tiết đồi thông phía sau */
+  /** Hoạ tiết vòng tròn mờ phía sau */
   decorated?: boolean;
+  /** Nút nhỏ cạnh tiêu đề (ví dụ: sửa tên chuyến) */
+  titleAction?: ReactNode;
 }

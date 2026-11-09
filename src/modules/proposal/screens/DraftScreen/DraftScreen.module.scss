@@ -2,7 +2,7 @@
 @use 'mixins' as *;
 
 .main { @include gutter; flex: 1; padding-top: 12px; padding-bottom: 24px; display: flex; flex-direction: column; gap: 8px; }
-.outdated { margin: 0; font-size: 13px; background: $accent-soft; color: #5a2e00; border-radius: $radius-md; padding: 10px 12px; }
+.outdated { margin: 0; font-size: 13px; background: $accent-soft; color: $accent-ink; border-radius: $radius-md; padding: 10px 12px; }
 .bar {
   @include gutter;
   position: sticky;
@@ -19,3 +19,19 @@
 .barInfo { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; flex-wrap: wrap; }
 .delta { color: $warn-ink; }
 .barActions { display: flex; gap: 8px; }
+
+.aside { display: flex; align-items: center; gap: 8px; }
+.help {
+  @include reset-button;
+  @include focus-ring;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid $primary;
+  color: $primary;
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

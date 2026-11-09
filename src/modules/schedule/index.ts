@@ -1,6 +1,9 @@
 export { ScheduleBlock } from './components/ScheduleBlock/ScheduleBlock';
 export { DirectionsDialog } from './functions/DirectionsDialog/DirectionsDialog';
 export { PlacePicker } from './functions/PlacePicker/PlacePicker';
+export { TripInfoSheet } from './functions/TripInfoSheet/TripInfoSheet';
+export { TripTitleEdit } from './functions/TripTitleEdit/TripTitleEdit';
+export { useTripInfo } from './hooks/useTripInfo.hook';
 export { ScheduleScreen } from './screens/ScheduleScreen/ScheduleScreen';
 export { useDirections } from './hooks/useDirections.hook';
 export { useSchedule } from './hooks/useSchedule.hook';

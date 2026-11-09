@@ -1,0 +1,35 @@
+@use 'tokens' as *;
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(calc(100% - 32px), 420px);
+  z-index: 70;
+  background: $ink;
+  color: #fff;
+  border-radius: 14px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 12px 28px rgba(20, 33, 61, 0.32);
+  animation: pop 0.32s cubic-bezier(0.2, 1.4, 0.4, 1);
+  cursor: pointer;
+  @media (min-width: 1024px) { bottom: 28px; }
+}
+.icon { width: 26px; height: 26px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.success .icon { background: #0e7c60; color: #fff; animation: tick 0.45s ease-out 0.1s both; }
+.info .icon { background: #ffc93c; color: #1f2533; }
+.error .icon { background: #a11d1d; color: #fff; }
+.message { flex: 1; min-width: 0; }
+
+@keyframes pop {
+  from { opacity: 0; transform: translate(-50%, 16px) scale(0.92); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+@keyframes tick { from { transform: scale(0) rotate(-45deg); } 70% { transform: scale(1.2); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .toast, .icon { animation: none !important; } }

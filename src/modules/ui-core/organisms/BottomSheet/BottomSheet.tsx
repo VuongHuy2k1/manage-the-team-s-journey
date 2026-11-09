@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useUiLocked } from '../../hooks/useUiLocked.hook';
 import { isUiLocked } from '../../utils/uiLock.utils';
 import { Icon } from '../../atoms/Icon/Icon';
@@ -25,8 +26,9 @@ export function BottomSheet({ open, onClose, label, header, children, footer }: 
     };
   }, [open, onClose]);
 
-  if (!open) return null;
-  return (
+  if (!open || typeof document === 'undefined') return null;
+  // Gắn thẳng vào body để popup lồng nhau (popup mở từ trong popup) luôn nằm trên cùng
+  return createPortal(
     <div className={styles.overlay} onClick={close} aria-busy={locked || undefined}>
       <section className={styles.sheet} role="dialog" aria-modal="true" aria-label={label} onClick={(e) => e.stopPropagation()}>
         <span className={styles.handle} aria-hidden="true" />
@@ -39,6 +41,7 @@ export function BottomSheet({ open, onClose, label, header, children, footer }: 
         <div className={styles.body}>{children}</div>
         {footer && <div className={styles.footer}>{footer}</div>}
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }

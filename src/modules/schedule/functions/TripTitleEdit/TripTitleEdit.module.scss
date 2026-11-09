@@ -1,0 +1,17 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.button {
+  @include reset-button;
+  @include focus-ring;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+.onDark { background: rgba(255, 255, 255, 0.14); color: #ffffff; @media (hover: hover) { &:hover { background: rgba(255, 255, 255, 0.26); } } }
+.onLight { background: $primary-soft; color: $primary; @media (hover: hover) { &:hover { background: #d9e0f8; } } }

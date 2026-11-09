@@ -7,16 +7,21 @@
   gap: 4px;
   background: $surface;
   border: 1px solid $line;
-  border-radius: 14px;
+  border-radius: $radius-md;
   padding: 10px 4px 10px 12px;
   min-width: 0;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  @media (hover: hover) {
+    &:hover { border-color: #b9c3ee; box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08); transform: translateY(-1px); }
+  }
 }
 
 .moved { border-color: $primary; }
 .edited { border-color: $accent; }
 .added { border-color: #14a37f; background: #f2fbf8; }
 .deleted { border-style: dashed; background: #f6f7fa; .title { text-decoration: line-through; color: $muted; } }
-.lifted { border-color: $primary; box-shadow: 0 14px 28px rgba(30, 85, 216, 0.28); transform: rotate(-1deg); }
+.lifted { border-color: $primary; box-shadow: 0 14px 28px rgba(37, 56, 154, 0.28); transform: rotate(-1deg); }
 
 .body {
   flex: 1;

@@ -2,17 +2,7 @@
 
 import { memberName, RoleTag } from '@/modules/member';
 import { indexMembers } from '@/modules/member/utils/role.utils';
-import {
-  AmountInput,
-  Avatar,
-  Button,
-  ConfirmDialog,
-  FormField,
-  MoneyText,
-  SegmentedControl,
-  StatRow,
-  cx,
-} from '@/modules/ui-core';
+import { AmountInput, Avatar, Button, ConfirmDialog, FormField, MoneyText, SegmentedControl, StatRow, cx, celebrate } from '@/modules/ui-core';
 import type { PayMethod } from '../../completion.type';
 import { useCompleteBlock } from '../../hooks/useCompleteBlock.hook';
 import { PAY_METHOD_LABEL, varianceText } from '../../utils/variance.utils';
@@ -31,6 +21,7 @@ export function ConfirmCompleteDialog({ block, onClose, onDone }: ConfirmComplet
   const handleConfirm = async () => {
     const ok = await c.confirm();
     if (!ok) return;
+    celebrate({ count: 24 });
     onDone?.({ block, confirmed: true });
     onClose();
   };

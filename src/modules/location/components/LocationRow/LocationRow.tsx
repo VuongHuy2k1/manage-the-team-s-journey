@@ -2,7 +2,7 @@ import { Avatar, Icon, cx } from '@/modules/ui-core';
 import styles from './LocationRow.module.scss';
 import type { LocationRowProps } from './LocationRow.type';
 
-export function LocationRow({ member, isMe, status, stale, visible, directionsUrl, onFocus }: LocationRowProps) {
+export function LocationRow({ member, isMe, status, stale, visible, directionsUrl, onFocus, onCall, hasPhone }: LocationRowProps) {
   const body = (
     <>
       <span className={styles.avatarWrap}>
@@ -23,6 +23,16 @@ export function LocationRow({ member, isMe, status, stale, visible, directionsUr
         </button>
       ) : (
         <div className={styles.main}>{body}</div>
+      )}
+      {onCall && (
+        <button
+          type="button"
+          className={cx(styles.call, !hasPhone && styles.callOff)}
+          onClick={onCall}
+          aria-label={hasPhone ? `Gọi ${member.name}` : `${member.name} chưa lưu số điện thoại`}
+        >
+          <Icon name="phone" size={18} />
+        </button>
       )}
       {directionsUrl && (
         <a className={styles.go} href={directionsUrl} target="_blank" rel="noopener noreferrer" aria-label={`Chỉ đường tới ${member.name}`}>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PlacePicker } from '@/modules/schedule/functions/PlacePicker/PlacePicker';
 import { CATEGORY_OPTIONS, TRIP_DAYS } from '@/modules/schedule/utils/schedule.utils';
 import type { Category, DayNumber } from '@/modules/schedule/schedule.type';
@@ -20,12 +20,29 @@ import { COST_TYPE_OPTIONS, useBlockForm } from '../../hooks/useBlockForm.hook';
 import styles from './BlockEditorSheet.module.scss';
 import type { BlockEditorSheetProps } from './BlockEditorSheet.type';
 
-export function BlockEditorSheet({ open, block, defaultDay, memberCount, onClose, onSave, onDelete }: BlockEditorSheetProps) {
+export function BlockEditorSheet({ open, block, defaultDay, memberCount, onClose, onSave, onDelete, existing = [], onEditExisting }: BlockEditorSheetProps) {
   const form = useBlockForm(open, block, defaultDay);
   const { fields: f, set, errors } = form;
   const [picking, setPicking] = useState(false);
+  /** Người dùng đã chọn "vẫn lưu" dù trùng giờ */
+  const [allowClash, setAllowClash] = useState(false);
+  const [clashAsked, setClashAsked] = useState(false);
+
+  const time = f.time.padStart(5, '0');
+  const clash = /^\d{2}:\d{2}$/.test(time)
+    ? existing.find((b) => b.day === f.day && b.time === time && b.id !== block?.id)
+    : undefined;
+
+  useEffect(() => {
+    setAllowClash(false);
+    setClashAsked(false);
+  }, [open, block, f.day, time]);
 
   const save = () => {
+    if (clash && !allowClash) {
+      setClashAsked(true);
+      return;
+    }
     const next = form.submit();
     if (!next) return;
     onSave(next);
@@ -57,7 +74,7 @@ export function BlockEditorSheet({ open, block, defaultDay, memberCount, onClose
 
       <div className={styles.grid}>
         <FormField label="Giờ" htmlFor="f-time" error={errors.time}>
-          <Input id="f-time" type="time" mono value={f.time} onChange={(e) => set.setTime(e.target.value)} invalid={!!errors.time} />
+          <Input id="f-time" type="time" mono className={styles.time} value={f.time} onChange={(e) => set.setTime(e.target.value)} invalid={!!errors.time} />
         </FormField>
         <FormField label="Ngày" htmlFor="f-day">
           <select id="f-day" className={styles.select} value={f.day} onChange={(e) => set.setDay(Number(e.target.value) as DayNumber)}>
@@ -67,6 +84,28 @@ export function BlockEditorSheet({ open, block, defaultDay, memberCount, onClose
           </select>
         </FormField>
       </div>
+
+      {clash && (
+        <div className={styles.clash} role="alert" data-asked={clashAsked || undefined}>
+          <span className={styles.clashText}>
+            <b>Đã có “{clash.title}” lúc {clash.time}, Ngày {clash.day}.</b>
+            {form.isNew ? ' Bạn muốn cập nhật mốc đang có thay vì tạo mốc mới?' : ' Hai mốc sẽ trùng giờ nhau.'}
+          </span>
+          <span className={styles.clashActions}>
+            {onEditExisting && (
+              <Button size="sm" variant="primary" icon="edit" onClick={() => onEditExisting(clash)}>
+                Sửa mốc đang có
+              </Button>
+            )}
+            {!allowClash && (
+              <Button size="sm" onClick={() => setAllowClash(true)}>
+                {form.isNew ? 'Vẫn tạo mới' : 'Vẫn giữ giờ này'}
+              </Button>
+            )}
+            {allowClash && <span className={styles.clashOk}>Sẽ lưu cả hai mốc cùng giờ</span>}
+          </span>
+        </div>
+      )}
 
       <FormField label="Loại">
         <SegmentedControl options={CATEGORY_OPTIONS} value={f.category} onChange={(v) => set.setCategory(v as Category)} ariaLabel="Loại mốc" wrap />

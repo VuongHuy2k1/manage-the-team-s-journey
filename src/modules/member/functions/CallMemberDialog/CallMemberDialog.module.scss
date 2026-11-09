@@ -1,0 +1,20 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.person { display: flex; align-items: center; gap: 12px; padding: 4px 0 8px; }
+.number { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 20px; font-weight: 600; letter-spacing: 0.02em; user-select: all; }
+.call {
+  @include focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: $radius-md;
+  background: $success;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}

@@ -6,11 +6,16 @@ import { TRIP_DAYS } from '@/modules/schedule/utils/schedule.utils';
 import type { DayNumber } from '@/modules/schedule/schedule.type';
 import { AppHeader, Badge, Button, ConfirmDialog, DayTabs, MoneyText, useDisclosure } from '@/modules/ui-core';
 import { DraftBoard } from '../../functions/DraftBoard/DraftBoard';
+import { DraftGuide } from '../../functions/DraftGuide/DraftGuide';
+import { useDraftGuide } from '../../hooks/useDraftGuide.hook';
+import { useTripState } from '@/core/hooks/useTripState.hook';
 import { useDraft } from '../../hooks/useDraft.hook';
 import styles from './DraftScreen.module.scss';
 
 export function DraftScreen() {
   const draft = useDraft();
+  const { currentMemberId } = useTripState();
+  const guide = useDraftGuide(currentMemberId);
   const [day, setDay] = useState<Exclude<DayNumber, 0>>(1);
   const discardDialog = useDisclosure();
   const count = draft.changes.length;
@@ -21,8 +26,13 @@ export function DraftScreen() {
         variant="plain"
         backHref={ROUTES.schedule}
         title="Bản nháp của bạn"
-        eyebrow={`Sao từ lịch v${draft.baseVersion} · tự lưu trên máy`}
-        aside={<Badge kind="draft">Nháp</Badge>}
+        eyebrow="Tự lưu trên máy, chỉ mình bạn thấy"
+        aside={
+          <span className={styles.aside}>
+            <button type="button" className={styles.help} onClick={guide.show} aria-label="Xem hướng dẫn">?</button>
+            <Badge kind="draft">Nháp</Badge>
+          </span>
+        }
       >
         <DayTabs tone="onLight" value={day} onChange={(d) => setDay(d as Exclude<DayNumber, 0>)} options={TRIP_DAYS.map((d) => ({ ...d, dot: draft.dayHasChanges(d.value) }))} />
       </AppHeader>
@@ -31,7 +41,7 @@ export function DraftScreen() {
         {draft.isOutdated && (
           <p className={styles.outdated}>Lịch chính thức đã được cập nhật sau khi bạn tạo nháp. Khi gửi, nhóm trưởng sẽ thấy nếu có chỗ trùng.</p>
         )}
-        <DraftBoard day={day} />
+        <DraftBoard day={day} onDayChange={setDay} demo={guide.demo} />
       </main>
 
       <footer className={styles.bar}>
@@ -49,6 +59,8 @@ export function DraftScreen() {
           </Button>
         </div>
       </footer>
+
+      <DraftGuide open={guide.open} dontShow={guide.dontShow} onDontShowChange={guide.setDontShow} onClose={guide.close} />
 
       <ConfirmDialog
         open={discardDialog.isOpen}

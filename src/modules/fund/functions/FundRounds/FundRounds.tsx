@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { formatWhen } from '@/core/utils/time.utils';
-import { Avatar, Badge, Button, MoneyText, Spinner, useDisclosure, useUiLocked } from '@/modules/ui-core';
+import { Avatar, Badge, Button, MoneyText, Spinner, useDisclosure, useUiLocked, celebrate, notify } from '@/modules/ui-core';
 import { RoundHeader } from '../../components/RoundHeader/RoundHeader';
 import { useFundRounds } from '../../hooks/useFundRounds.hook';
 import { CreateRoundSheet } from '../CreateRoundSheet/CreateRoundSheet';
@@ -79,7 +79,13 @@ export function FundRounds() {
                               disabled={locked}
                               onChange={(e) => {
                                 const paid = e.target.checked;
-                                void run(`${r.round.id}:${row.member.id}`, () => f.toggle(r.round.id, row.member.id, paid));
+                                void run(`${r.round.id}:${row.member.id}`, async () => {
+                                  const ok = await f.toggle(r.round.id, row.member.id, paid);
+                                  if (ok && paid) {
+                                    celebrate({ count: 14 });
+                                    notify(`${row.member.name} đã nộp ${r.round.title}`);
+                                  }
+                                });
                               }}
                             />
                             <span className={styles.srOnly}>{row.member.name} đã nộp {r.round.title}</span>

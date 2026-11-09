@@ -1,0 +1,52 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.header { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.heading { font-size: 17px; font-weight: 800; }
+.sub { font-size: 12px; color: $muted; }
+.up { color: $danger; font-weight: 700; }
+.down { color: $success-ink; font-weight: 700; }
+
+.days { display: flex; flex: none; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.day {
+  @include reset-button;
+  @include focus-ring;
+  position: relative;
+  flex: none;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid $line;
+  font-size: 13px;
+  font-weight: 600;
+  color: $ink;
+  background: $surface;
+}
+.dayOn { background: $primary; border-color: $primary; color: #fff; }
+.dot { position: absolute; top: 4px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: $accent; }
+
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid $line;
+  background: $surface;
+}
+.added { border-color: #5DDBB4; background: #E6F7F1; }
+.edited { border-color: #FFD3A3; background: #FFF6EC; }
+.moved { border-color: #A3C1FF; background: #EEF3FF; }
+.deleted { border-color: #F4B4B4; background: #FDF0F0; }
+.time { width: 44px; flex: none; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; font-weight: 600; color: $muted; }
+.text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.title { font-size: 14px; font-weight: 600; }
+.strike { text-decoration: line-through; color: $muted; }
+.meta { font-size: 12px; color: $muted; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.cost { font-size: 11px; color: $muted; }
+.empty { font-size: 13px; color: $muted; padding: 8px 0; }
+.reason { margin: 0; font-size: 13px; color: $muted; font-style: italic; }
+.changeList { display: flex; flex-direction: column; gap: 8px; }
+.count { font-size: 12px; font-weight: 700; color: $muted; text-transform: uppercase; letter-spacing: 0.06em; }

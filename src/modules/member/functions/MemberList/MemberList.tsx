@@ -1,13 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { formatWhen } from '@/core/utils/time.utils';
 import { Button, ConfirmDialog } from '@/modules/ui-core';
 import { MemberRow } from '../../components/MemberRow/MemberRow';
 import { useMemberManagement } from '../../hooks/useMemberManagement.hook';
+import type { Member } from '../../member.type';
+import { formatPhone } from '../../utils/phone.utils';
+import { CallMemberDialog } from '../CallMemberDialog/CallMemberDialog';
 import styles from './MemberList.module.scss';
 
 export function MemberList() {
   const m = useMemberManagement();
+  const [calling, setCalling] = useState<Member | null>(null);
 
   return (
     <div className={styles.wrap}>
@@ -22,11 +27,25 @@ export function MemberList() {
                   member={member}
                   isLeader={m.leaderIds.includes(member.id)}
                   isMe={member.id === m.meId}
-                  meta={m.isLeader ? member.email || undefined : member.joinedAt ? `Vào nhóm ${formatWhen(member.joinedAt).toLowerCase()}` : undefined}
+                  meta={
+                    member.phone
+                      ? formatPhone(member.phone)
+                      : m.isLeader
+                        ? member.email || undefined
+                        : member.joinedAt
+                          ? `Vào nhóm ${formatWhen(member.joinedAt).toLowerCase()}`
+                          : undefined
+                  }
+                  onSelect={member.phone && member.id !== m.meId ? () => setCalling(member) : undefined}
                   action={
-                    canRemove ? (
-                      <Button variant="ghost" size="sm" icon="trash" aria-label={`Xoá ${member.name} khỏi nhóm`} disabled={m.busyId === member.id} onClick={() => m.askRemove(member)} className={styles.remove} />
-                    ) : undefined
+                    <span className={styles.actions}>
+                      {member.phone && member.id !== m.meId && (
+                        <Button variant="success" size="sm" icon="phone" aria-label={`Gọi ${member.name}`} onClick={() => setCalling(member)} />
+                      )}
+                      {canRemove && (
+                        <Button variant="ghost" size="sm" icon="trash" aria-label={`Xoá ${member.name} khỏi nhóm`} disabled={m.busyId === member.id} onClick={() => m.askRemove(member)} className={styles.remove} />
+                      )}
+                    </span>
                   }
                 />
               </li>
@@ -55,7 +74,11 @@ export function MemberList() {
         </section>
       )}
 
-      {!m.isLeader && <p className={styles.note}>Chỉ nhóm trưởng mới xoá được thành viên.</p>}
+      <p className={styles.note}>
+        Bấm vào người có số điện thoại để gọi. Thêm số của bạn ở Tài khoản → Số điện thoại.
+        {!m.isLeader && ' Chỉ nhóm trưởng mới xoá được thành viên.'}
+      </p>
+      <CallMemberDialog member={calling} onClose={() => setCalling(null)} />
 
       <ConfirmDialog
         open={Boolean(m.confirming)}

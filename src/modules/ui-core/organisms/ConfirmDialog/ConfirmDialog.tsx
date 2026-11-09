@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useUiLocked } from '../../hooks/useUiLocked.hook';
 import { isUiLocked } from '../../utils/uiLock.utils';
 import { Icon } from '../../atoms/Icon/Icon';
@@ -21,8 +22,9 @@ export function ConfirmDialog({ open, onClose, title, subtitle, icon, iconTone =
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  if (!open) return null;
-  return (
+  if (!open || typeof document === 'undefined') return null;
+  // Gắn thẳng vào body để popup lồng nhau (popup mở từ trong popup) luôn nằm trên cùng
+  return createPortal(
     <div className={styles.overlay} onClick={close} aria-busy={locked || undefined}>
       <div className={styles.dialog} role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}>
         <div className={styles.head}>
@@ -39,6 +41,7 @@ export function ConfirmDialog({ open, onClose, title, subtitle, icon, iconTone =
         {children}
         <div className={styles.actions}>{actions}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

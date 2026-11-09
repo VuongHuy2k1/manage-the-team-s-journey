@@ -43,6 +43,12 @@ export function MyAccountScreen() {
               {a.nameChanged && <Button variant="primary" onClick={a.saveName} loading={a.saving}>Lưu</Button>}
             </div>
           </FormField>
+          <FormField label="Số điện thoại" htmlFor="my-phone" hint="Cả nhóm thấy số này trong danh sách thành viên và bấm để gọi bạn.">
+            <div className={styles.nameRow}>
+              <Input id="my-phone" type="tel" inputMode="tel" autoComplete="tel" value={a.phone} maxLength={20} placeholder="0912 345 678" onChange={(e) => a.setPhone(e.target.value)} />
+              {a.phoneChanged && <Button variant="primary" onClick={a.savePhone} loading={a.saving}>Lưu</Button>}
+            </div>
+          </FormField>
           <div className={styles.info}>
             <span className={styles.muted}>Đăng nhập bằng Google</span>
             <span className={styles.email}>{a.me.email}</span>

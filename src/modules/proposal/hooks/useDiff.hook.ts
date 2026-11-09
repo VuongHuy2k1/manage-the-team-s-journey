@@ -8,6 +8,7 @@ import { submitRequest } from '@/core/store/trip.actions';
 import { sumPerPerson } from '@/modules/schedule/utils/schedule.utils';
 import { breakdownText, requestTitle } from '../utils/diff.utils';
 import { useDraft } from './useDraft.hook';
+import { celebrate, notify } from '@/modules/ui-core';
 
 /** So sánh bản nháp với lịch gốc và gửi thành yêu cầu cho nhóm trưởng */
 export function useDiff() {
@@ -33,7 +34,11 @@ export function useDiff() {
       changes: draft.changes,
       costDeltaPerPerson: draft.costDelta,
     });
-    if (id) router.push(ROUTES.requests);
+    if (id) {
+      celebrate({ count: 20 });
+      notify('Đã gửi yêu cầu cho nhóm trưởng duyệt');
+      router.push(ROUTES.requests);
+    }
   };
 
   return { ...draft, ...summary, submit };

@@ -65,7 +65,7 @@ export async function becomeLeader(passcode: string): Promise<void> {
   await withTimeout(batch.commit());
 }
 
-export async function updateMyProfile(patch: { name?: string; avatar?: string | null }): Promise<void> {
+export async function updateMyProfile(patch: { name?: string; avatar?: string | null; phone?: string }): Promise<void> {
   const { auth, db } = fb();
   const user = auth.currentUser;
   if (!user) return;

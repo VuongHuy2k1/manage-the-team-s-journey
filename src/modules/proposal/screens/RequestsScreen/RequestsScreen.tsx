@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { MAIN_NAV } from '@/core/config/nav.config';
 import { ROUTES } from '@/core/config/routes.config';
 import { timeAgo } from '@/core/utils/time.utils';
@@ -8,6 +9,7 @@ import { AccountMenu, memberName, RoleTag, useIsLeader } from '@/modules/member'
 import { AppHeader, BottomNav, Button } from '@/modules/ui-core';
 import { RequestCard } from '../../components/RequestCard/RequestCard';
 import { ApproveActions } from '../../functions/ApproveActions/ApproveActions';
+import { RequestPreviewSheet } from '../../functions/RequestPreviewSheet/RequestPreviewSheet';
 import { VotePanel } from '../../functions/VotePanel/VotePanel';
 import { useRequests } from '../../hooks/useRequests.hook';
 import { costDeltaText } from '../../utils/diff.utils';
@@ -16,6 +18,8 @@ import styles from './RequestsScreen.module.scss';
 export function RequestsScreen() {
   const { pending, historyCount, membersById } = useRequests();
   const isLeader = useIsLeader();
+  const [previewId, setPreviewId] = useState<string | null>(null);
+  const previewing = pending.find((v) => v.request.id === previewId)?.request ?? null;
 
   return (
     <>
@@ -45,6 +49,7 @@ export function RequestsScreen() {
               changes={view.request.changes}
               votes={<VotePanel view={view} />}
               conflict={view.conflict}
+              onOpen={() => setPreviewId(view.request.id)}
             >
               <ApproveActions requestId={view.request.id} title={view.request.title} />
             </RequestCard>
@@ -52,6 +57,12 @@ export function RequestsScreen() {
         )}
         {!isLeader && pending.length > 0 && <p className={styles.note}>Chỉ nhóm trưởng mới duyệt hoặc từ chối được.</p>}
       </main>
+
+      <RequestPreviewSheet
+        request={previewing}
+        onClose={() => setPreviewId(null)}
+        actions={previewing && isLeader ? <ApproveActions requestId={previewing.id} title={previewing.title} /> : undefined}
+      />
 
       <BottomNav items={MAIN_NAV.map((i) => (i.key === 'requests' ? { ...i, badge: pending.length } : i))} activeKey="requests" />
     </>

@@ -1,0 +1,24 @@
+@use 'tokens' as *;
+
+.inline, .screen { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+.screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 24px;
+  background: linear-gradient(180deg, #dcEFFB 0%, #eef6fc 55%, #fbf7ec 100%);
+  overflow: hidden;
+  &::before, &::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
+  &::before { width: 260px; height: 260px; right: -70px; top: -60px; background: rgba(255, 255, 255, 0.55); }
+  &::after { width: 320px; height: 320px; left: -110px; bottom: -120px; background: rgba(255, 243, 201, 0.6); }
+}
+.art { position: relative; z-index: 1; max-width: 86vw; max-height: 86vw; :global(svg) { width: 100%; height: 100%; display: block; overflow: visible; } }
+.texts { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 100%; max-width: 360px; }
+.title { font-size: 20px; font-weight: 800; color: $primary; }
+.landmark { font-size: 15px; font-weight: 700; color: #7a5a00; }
+.label { font-size: 13px; color: $muted; }
+.dots span { display: inline-block; animation: dot 1.2s ease-in-out infinite; }
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+@media (min-width: 1024px) { .title { font-size: 26px; } .landmark { font-size: 17px; } }

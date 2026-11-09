@@ -1,0 +1,153 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(20, 33, 61, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  animation: fade 0.18s ease-out;
+  @media (min-width: 560px) { align-items: center; }
+}
+.dialog {
+  width: 100%;
+  max-width: 420px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: $surface;
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: pop 0.22s ease-out;
+}
+.top { display: flex; justify-content: space-between; align-items: center; }
+.badge { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: $primary; }
+.skip { @include reset-button; @include focus-ring; font-size: 13px; color: $muted; padding: 6px; }
+.title { margin: 4px 0 0; font-size: 18px; font-weight: 800; text-wrap: balance; }
+.text { margin: 0; font-size: 14px; line-height: 1.5; color: $muted; }
+.dots { display: flex; gap: 6px; justify-content: center; padding: 4px 0; }
+.dot { width: 7px; height: 7px; border-radius: 4px; background: $line; transition: width 0.2s; }
+.dotOn { width: 20px; background: $primary; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; input { width: 20px; height: 20px; accent-color: $primary; margin: 0; } }
+.actions { display: flex; gap: 8px; }
+.foot { display: flex; gap: 4px; align-items: center; justify-content: center; font-size: 11px; color: $muted; }
+
+/* ---------- Sân khấu minh hoạ ---------- */
+.stage {
+  position: relative;
+  height: 170px;
+  border-radius: 16px;
+  background: $bg;
+  overflow: hidden;
+  padding: 14px;
+}
+.cards { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.card {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: $surface;
+  border: 1px solid $line;
+  font-size: 12px;
+  b { font-family: 'JetBrains Mono', ui-monospace, monospace; color: $muted; font-weight: 600; }
+}
+.finger { position: absolute; left: 60%; top: 22px; width: 30px; height: 30px; z-index: 3; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25)); }
+.ripple { position: absolute; left: 4px; top: 0; width: 18px; height: 18px; border-radius: 50%; background: rgba(30, 85, 216, 0.35); opacity: 0; }
+
+/* Đổi thứ tự: thẻ A nhấc lên và đi xuống dưới thẻ B */
+.reorder .cardA { animation: lift 3s ease-in-out infinite; position: relative; z-index: 2; }
+.reorder .cardB { animation: shiftUp 3s ease-in-out infinite; }
+.reorder .finger { animation: fingerDown 3s ease-in-out infinite; }
+.reorder .ripple { animation: hold 3s ease-in-out infinite; }
+@keyframes lift {
+  0%, 15% { transform: none; box-shadow: none; }
+  25% { transform: scale(1.04); box-shadow: 0 8px 18px rgba(20, 33, 61, 0.2); }
+  55%, 70% { transform: scale(1.04) translateY(44px); box-shadow: 0 8px 18px rgba(20, 33, 61, 0.2); }
+  80%, 100% { transform: translateY(44px); box-shadow: none; }
+}
+@keyframes shiftUp { 0%, 35% { transform: none; } 55%, 100% { transform: translateY(-44px); } }
+@keyframes fingerDown { 0%, 25% { transform: none; } 55%, 70% { transform: translateY(44px); } 85%, 100% { transform: translateY(44px); opacity: 0; } }
+@keyframes hold { 0%, 8% { opacity: 0; transform: scale(0.4); } 20% { opacity: 1; transform: scale(1.6); } 30%, 100% { opacity: 0; } }
+
+/* Sang ngày khác: thẻ A rơi vào ô Ngày 2 */
+.zones { position: absolute; left: 14px; right: 14px; bottom: 12px; display: flex; gap: 8px; animation: zonesIn 3.2s ease-in-out infinite; }
+.zone { flex: 1; height: 40px; border-radius: 10px; border: 2px dashed $primary; color: $primary; background: $surface; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.day .zone:first-child { animation: zoneHit 3.2s ease-in-out infinite; }
+.day .cardA { animation: toDay 3.2s ease-in-out infinite; position: relative; z-index: 2; }
+.day .finger { animation: fingerDay 3.2s ease-in-out infinite; }
+.day .ripple { animation: hold 3.2s ease-in-out infinite; }
+@keyframes zonesIn { 0%, 15% { opacity: 0; transform: translateY(16px); } 25%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes zoneHit { 0%, 55% { background: $surface; color: $primary; } 62%, 80% { background: $primary; color: #fff; transform: scale(1.04); } 100% { background: $surface; } }
+@keyframes toDay {
+  0%, 15% { transform: none; opacity: 1; }
+  25% { transform: scale(1.04); box-shadow: 0 8px 18px rgba(20, 33, 61, 0.2); }
+  60% { transform: translate(-20%, 96px) scale(0.7); opacity: 1; }
+  75%, 100% { transform: translate(-20%, 96px) scale(0.5); opacity: 0; }
+}
+@keyframes fingerDay { 0%, 25% { transform: none; opacity: 1; } 60% { transform: translate(-90px, 96px); opacity: 1; } 75%, 100% { transform: translate(-90px, 96px); opacity: 0; } }
+
+/* Chạm để sửa: chạm nhanh, bảng sửa trượt lên */
+.edit .finger { top: 66px; animation: tap 3s ease-in-out infinite; }
+.edit .ripple { animation: tapRipple 3s ease-out infinite; }
+.edit .cardB { animation: tapped 3s ease-in-out infinite; }
+.sheet {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -100px;
+  height: 92px;
+  border-radius: 14px 14px 0 0;
+  background: $surface;
+  box-shadow: 0 -6px 20px rgba(20, 33, 61, 0.18);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: sheetUp 3s ease-in-out infinite;
+  span { height: 10px; border-radius: 5px; background: $line; }
+  span:first-child { width: 60%; background: $primary; opacity: 0.6; }
+  span:last-child { width: 40%; }
+}
+@keyframes tap { 0%, 10% { transform: translateY(-10px); opacity: 0; } 20% { transform: none; opacity: 1; } 35% { transform: scale(0.9); } 45%, 100% { transform: none; opacity: 0; } }
+@keyframes tapRipple { 0%, 30% { opacity: 0; transform: scale(0.4); } 38% { opacity: 1; transform: scale(1.8); } 50%, 100% { opacity: 0; } }
+@keyframes tapped { 0%, 30% { background: $surface; } 38%, 45% { background: $accent-soft; } 55%, 100% { background: $surface; } }
+@keyframes sheetUp { 0%, 45% { transform: none; } 60%, 85% { transform: translateY(-100px); } 100% { transform: none; } }
+
+/* Gửi duyệt: nút nhấp nháy, ngón tay bấm */
+.sendBtn {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  height: 40px;
+  border-radius: 12px;
+  background: $primary;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2.6s ease-in-out infinite;
+}
+.send .finger { top: auto; bottom: 4px; left: 62%; animation: tapSend 2.6s ease-in-out infinite; }
+.send .ripple { animation: tapRipple 2.6s ease-out infinite; }
+.send .cards { opacity: 0.55; }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(30, 85, 216, 0.45); } 50% { box-shadow: 0 0 0 10px rgba(30, 85, 216, 0); } }
+@keyframes tapSend { 0%, 20% { transform: translateY(-20px); opacity: 0; } 32% { transform: none; opacity: 1; } 40% { transform: scale(0.9); } 55%, 100% { transform: none; opacity: 0; } }
+
+@keyframes fade { from { opacity: 0; } }
+@keyframes pop { from { transform: translateY(16px) scale(0.98); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .stage *, .stage { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+}

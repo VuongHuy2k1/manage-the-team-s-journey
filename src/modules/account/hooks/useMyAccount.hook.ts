@@ -6,6 +6,7 @@ import { signOutAccount, updateMyProfile } from '@/core/api/account.api';
 import { ROUTES } from '@/core/config/routes.config';
 import { useSyncMeta, useTripState } from '@/core/hooks/useTripState.hook';
 import { readAvatar } from '@/core/utils/image.utils';
+import { formatPhone, isValidPhone, normalizePhone } from '@/modules/member/utils/phone.utils';
 import { authErrorMessage } from '../utils/authError.utils';
 
 export function useMyAccount() {
@@ -13,10 +14,12 @@ export function useMyAccount() {
   const { members, leaderIds } = useTripState();
   const router = useRouter();
   const [name, setName] = useState(me?.name ?? '');
+  const [phone, setPhone] = useState(me?.phone ? formatPhone(me.phone) : '');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ tone: 'ok' | 'error'; text: string } | null>(null);
 
   useEffect(() => setName(me?.name ?? ''), [me?.name]);
+  useEffect(() => setPhone(me?.phone ? formatPhone(me.phone) : ''), [me?.phone]);
 
   const run = async (fn: () => Promise<void>, ok: string) => {
     setSaving(true);
@@ -38,6 +41,17 @@ export function useMyAccount() {
     name,
     setName,
     nameChanged: Boolean(me && name.trim() && name.trim() !== me.name),
+    phone,
+    setPhone,
+    phoneChanged: normalizePhone(phone) !== (me?.phone ?? ''),
+    savePhone: () => {
+      const value = normalizePhone(phone);
+      if (value && !isValidPhone(value)) {
+        setMessage({ tone: 'error', text: 'Số điện thoại chưa đúng (9–15 chữ số).' });
+        return;
+      }
+      return run(() => updateMyProfile({ phone: value }), value ? 'Đã lưu số điện thoại' : 'Đã gỡ số điện thoại');
+    },
     saving,
     message,
     saveName: () => {

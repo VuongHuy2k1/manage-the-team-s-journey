@@ -3,9 +3,17 @@ import { ChangeItem } from '../ChangeItem/ChangeItem';
 import styles from './RequestCard.module.scss';
 import type { RequestCardProps } from './RequestCard.type';
 
-export function RequestCard({ title, authorName, when, costText, reason, changes, votes, conflict, children, highlight }: RequestCardProps) {
+export function RequestCard({ title, authorName, when, costText, reason, changes, votes, conflict, children, highlight, onOpen }: RequestCardProps) {
   return (
     <article className={cx(styles.card, highlight && styles.highlight)}>
+      <div
+        className={cx(styles.body, onOpen && styles.clickable)}
+        onClick={onOpen}
+        role={onOpen ? 'button' : undefined}
+        tabIndex={onOpen ? 0 : undefined}
+        aria-label={onOpen ? `Xem chi tiết ${title}` : undefined}
+        onKeyDown={onOpen ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } } : undefined}
+      >
       <div className={styles.head}>
         <div className={styles.titles}>
           <h2 className={styles.title}>{title}</h2>
@@ -18,6 +26,12 @@ export function RequestCard({ title, authorName, when, costText, reason, changes
         {changes.map((c) => (
           <ChangeItem key={`${c.kind}-${c.blockId}`} change={c} variant="compact" />
         ))}
+      </div>
+      {onOpen && (
+        <span className={styles.more}>
+          Xem chi tiết & lịch sau khi đổi <Icon name="arrow-right" size={14} />
+        </span>
+      )}
       </div>
       {votes && <div className={styles.votes}>{votes}</div>}
       {conflict && (

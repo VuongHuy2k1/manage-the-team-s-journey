@@ -9,11 +9,14 @@
   justify-content: space-around;
   background: $surface;
   border-top: 1px solid $line;
-  padding: 6px 4px calc(10px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 16px rgba(16, 24, 40, 0.06);
+  padding: 8px 4px calc(12px + env(safe-area-inset-bottom, 0px));
 }
 
 .item {
   @include focus-ring;
+  position: relative;
+  transition: background-color 0.15s ease, color 0.15s ease;
   min-width: 64px;
   min-height: $touch;
   display: flex;
@@ -22,12 +25,17 @@
   justify-content: center;
   gap: 3px;
   font-size: 11px;
-  color: $muted;
+  color: $subtle;
   text-decoration: none;
-  border-radius: $radius-sm;
+  border-radius: 10px;
+  @media (hover: hover) { &:hover { background: $primary-soft; color: $primary; } }
 }
 
-.active { color: $primary; font-weight: 700; }
+.active {
+  color: $primary;
+  font-weight: 700;
+  &::before { content: ''; position: absolute; top: -9px; left: 50%; width: 24px; height: 3px; margin-left: -12px; border-radius: 0 0 3px 3px; background: $primary; }
+}
 .iconWrap { position: relative; display: flex; }
 .badge {
   position: absolute;
@@ -38,10 +46,14 @@
   padding: 0 4px;
   border-radius: $radius-pill;
   background: $accent;
-  color: $accent-ink;
+  color: #ffffff;
+  border: 1.5px solid $surface;
   font-size: 10px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+/* Máy tính dùng thanh bên trái */
+@media (min-width: 1024px) { .nav { display: none; } }

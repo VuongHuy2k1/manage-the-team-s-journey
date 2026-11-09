@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { MAIN_NAV } from '@/core/config/nav.config';
 import { ROUTES } from '@/core/config/routes.config';
-import { TRIP } from '@/core/config/trip.config';
 import { AccountMenu, useIsLeader } from '@/modules/member';
 import { AppHeader, BottomNav, Button, DayTabs, Icon, MoneyText } from '@/modules/ui-core';
 import { DayHeader } from '../../components/DayHeader/DayHeader';
 import { ScheduleTemplate } from '../../components/ScheduleTemplate/ScheduleTemplate';
 import { ScheduleList } from '../../functions/ScheduleList/ScheduleList';
+import { TripTitleEdit } from '../../functions/TripTitleEdit/TripTitleEdit';
+import { useTripInfo } from '../../hooks/useTripInfo.hook';
 import { useSchedule } from '../../hooks/useSchedule.hook';
 import type { DayNumber } from '../../schedule.type';
 import styles from './ScheduleScreen.module.scss';
@@ -16,11 +17,18 @@ import styles from './ScheduleScreen.module.scss';
 export function ScheduleScreen() {
   const s = useSchedule();
   const isLeader = useIsLeader();
+  const trip = useTripInfo();
 
   return (
     <ScheduleTemplate
       header={
-        <AppHeader decorated eyebrow={`Lịch chính thức · v${s.versionNumber} · ${s.memberCount} người`} title={TRIP.name} aside={<AccountMenu />}>
+        <AppHeader
+          decorated
+          eyebrow={[trip.subtitle, `${s.memberCount} người`].filter(Boolean).join(' · ')}
+          title={trip.name}
+          titleAction={<TripTitleEdit />}
+          aside={<AccountMenu />}
+        >
           <div className={styles.headBottom}>
             <p className={styles.summary}>
               Dự tính <MoneyText value={s.tripEstimatePerPerson} format="k" /> / người · Quỹ còn <MoneyText value={s.fundBalance} format="k" />

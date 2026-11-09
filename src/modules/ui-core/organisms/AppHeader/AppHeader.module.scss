@@ -15,12 +15,13 @@
 .brand { background: $primary; color: $on-primary; }
 .plain { background: $surface; color: $ink; border-bottom: 1px solid $line; padding-top: 10px; padding-left: 8px; }
 
-.hills { position: absolute; right: 0; bottom: 0; width: 390px; height: 80px; color: #2e66e6; pointer-events: none; }
+.hills { position: absolute; right: -30px; top: -30px; width: 180px; height: 140px; color: #ffffff; pointer-events: none; }
+.titleRow { display: flex; align-items: center; gap: 8px; min-width: 0; }
 
 .top { position: relative; display: flex; align-items: center; gap: 4px; }
 .titles { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-.brand .eyebrow { color: #ffe1b3; }
+.brand .eyebrow { color: $on-primary-soft; letter-spacing: 0.04em; text-transform: none; font-weight: 500; font-size: 13px; order: 2; }
 .plain .eyebrow { color: $muted; letter-spacing: 0.04em; text-transform: none; font-weight: 500; font-size: 12px; order: 2; }
 .title { font-size: 22px; font-weight: 800; line-height: 1.2; }
 .plain .title { font-size: 17px; }

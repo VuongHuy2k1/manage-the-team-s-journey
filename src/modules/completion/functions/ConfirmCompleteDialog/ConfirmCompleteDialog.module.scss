@@ -6,7 +6,7 @@
 .fund { border: 1.5px solid $line; border-radius: $radius-md; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
 .over { color: $warn-ink; }
 .under { color: $success-ink; }
-.pending { margin: 0; font-size: 13px; background: $accent-soft; color: #5a2e00; border-radius: 10px; padding: 8px 10px; }
+.pending { margin: 0; font-size: 13px; background: $accent-soft; color: $accent-ink; border-radius: 10px; padding: 8px 10px; }
 .note { margin: 0; font-size: 13px; color: $muted; }
 .people { display: flex; flex-wrap: wrap; gap: 6px; }
 .person {

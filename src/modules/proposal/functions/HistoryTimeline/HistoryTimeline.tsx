@@ -19,7 +19,7 @@ const DOT: Record<HistoryEntry['status'], string> = {
   create: 'var(--c-primary)',
   approve: '#14A37F',
   restore: 'var(--c-accent)',
-  edit: '#FF8A1F',
+  edit: '#F36F21',
   reject: '#E04848',
 };
 

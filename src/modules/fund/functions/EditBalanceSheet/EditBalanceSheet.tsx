@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BottomSheet, Button, FormField, Input, MoneyText, formatMoneyInput, parseMoney } from '@/modules/ui-core';
+import { BottomSheet, Button, FormField, Input, MoneyText, formatMoneyInput, parseMoney, notify } from '@/modules/ui-core';
 import { useFund } from '../../hooks/useFund.hook';
 import styles from './EditBalanceSheet.module.scss';
 import type { EditBalanceSheetProps } from './EditBalanceSheet.type';
@@ -18,7 +18,10 @@ export function EditBalanceSheet({ open, onClose }: EditBalanceSheetProps) {
   }, [open, fund.balance]);
 
   const save = async () => {
-    if (balance !== fund.balance && !(await setBalance(balance, reason))) return;
+    if (balance !== fund.balance) {
+      if (!(await setBalance(balance, reason))) return;
+      notify('Đã cập nhật số dư quỹ');
+    }
     onClose();
   };
 

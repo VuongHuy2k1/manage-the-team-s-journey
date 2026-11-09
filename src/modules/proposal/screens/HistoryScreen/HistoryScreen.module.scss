@@ -4,5 +4,5 @@
 .tabs { display: flex; gap: 22px; margin-bottom: -14px; }
 %tab { min-height: 40px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 600; text-decoration: none; }
 .tab { @extend %tab; @include focus-ring; color: $on-primary-soft; }
-.tabOn { @extend %tab; color: $on-primary; box-shadow: inset 0 -3px 0 #ffa31a; }
+.tabOn { @extend %tab; color: $on-primary; box-shadow: inset 0 -3px 0 #ffc93c; }
 .main { @include gutter; flex: 1; padding-top: 14px; padding-bottom: 24px; }

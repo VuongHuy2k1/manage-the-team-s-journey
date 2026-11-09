@@ -16,4 +16,6 @@ export interface RequestCardProps {
   /** Nút hành động */
   children?: ReactNode;
   highlight?: boolean;
+  /** Bấm vào phần nội dung để xem chi tiết */
+  onOpen?: () => void;
 }

@@ -524,3 +524,14 @@ export function resetTripData(options: ResetOptions) {
     return { ...next, fund };
   });
 }
+
+/* ---------- Thông tin chuyến ---------- */
+
+/** Nhóm trưởng sửa tên chuyến và dòng mô tả */
+export function updateTripInfo(info: { name: string; subtitle: string }) {
+  return update((s) => {
+    const name = info.name.trim().slice(0, 40);
+    if (!isLeader(s) || !name) return s;
+    return { ...s, info: { name, subtitle: info.subtitle.trim().slice(0, 80) } };
+  });
+}

@@ -1,18 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  AmountInput,
-  Avatar,
-  BottomSheet,
-  Button,
-  FormField,
-  Input,
-  MoneyText,
-  SegmentedControl,
-  StatRow,
-  type AmountUnit,
-} from '@/modules/ui-core';
+import { AmountInput, Avatar, BottomSheet, Button, FormField, Input, MoneyText, SegmentedControl, StatRow, type AmountUnit, notify } from '@/modules/ui-core';
 import type { ExpensePayMethod } from '../../fund.type';
 import styles from './AddExpenseSheet.module.scss';
 import type { AddExpenseSheetProps } from './AddExpenseSheet.type';
@@ -54,7 +43,10 @@ export function AddExpenseSheet({ open, onClose, onAdd, members, meId, fundBalan
     setBusy(true);
     const ok = await onAdd({ title, amount: total, payMethod, paidBy, note, plannedId: initial?.plannedId });
     setBusy(false);
-    if (ok) onClose();
+    if (ok) {
+      notify(payMethod === 'fund' ? 'Đã ghi khoản chi và trừ quỹ' : 'Đã ghi khoản chi');
+      onClose();
+    }
   };
 
   return (

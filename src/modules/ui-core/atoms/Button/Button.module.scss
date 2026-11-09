@@ -7,9 +7,9 @@
   align-items: center;
   justify-content: center;
   gap: $space-2;
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
   border: 1px solid transparent;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
@@ -25,18 +25,28 @@
   }
 }
 
-.sm { min-height: 36px; padding: 0 12px; font-size: 12px; border-radius: 10px; }
+.sm { min-height: 36px; padding: 0 12px; font-size: 13px; }
 .md { min-height: $touch; padding: 0 16px; font-size: 14px; }
 .lg { min-height: 50px; padding: 0 18px; font-size: 15px; }
 .block { width: 100%; }
 .iconOnly { padding: 0; aspect-ratio: 1; }
 
-.primary { background: $primary; color: $on-primary; &:hover:not(:disabled) { background: $primary-strong; } }
-.secondary { background: $surface; color: $ink; border-color: $line; font-weight: 600; &:hover:not(:disabled) { background: $bg; } }
-.accent { background: $accent; color: $accent-ink; }
-.success { background: $success; color: $on-primary; }
-.danger { background: $surface; color: $danger; border-color: #f4b4b4; font-weight: 600; }
-.ghost { background: transparent; color: $ink; font-weight: 600; &:hover:not(:disabled) { background: $line-soft; } }
+.primary { background: $primary; color: $on-primary; border-color: $primary; }
+.secondary { background: $surface; color: $primary; border-color: $primary; }
+.accent { background: $yellow; color: $ink; border-color: #f2b705; }
+.success { background: $success; color: $on-primary; border-color: $success; }
+.danger { background: $surface; color: $danger; border-color: #f4b7b2; }
+.ghost { background: transparent; color: $primary; }
+
+/* Rê chuột (chỉ máy có chuột) */
+@media (hover: hover) {
+  .primary:hover:not(:disabled) { background: $primary-strong; border-color: $primary-strong; box-shadow: 0 6px 16px rgba(37, 56, 154, 0.28); }
+  .secondary:hover:not(:disabled) { background: $primary-soft; }
+  .accent:hover:not(:disabled) { background: $yellow-strong; box-shadow: 0 6px 16px rgba(245, 184, 0, 0.35); }
+  .success:hover:not(:disabled) { filter: brightness(0.94); box-shadow: 0 6px 16px rgba(18, 161, 80, 0.25); }
+  .danger:hover:not(:disabled) { background: $danger-soft; border-color: $danger; }
+  .ghost:hover:not(:disabled) { background: $line-soft; }
+}
 
 /* Đang gửi: giữ độ đậm để thấy rõ vòng xoay, không cho bấm */
 .busy,
@@ -46,3 +56,8 @@
 }
 
 a.button[aria-disabled='true'] { opacity: 0.5; pointer-events: none; }
+
+/* Nhấn: lún nhẹ */
+.button { transition: transform 0.12s ease, background-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease; }
+.button:not(:disabled):active { transform: scale(0.97); }
+

@@ -39,3 +39,52 @@
   justify-content: center;
   gap: 6px;
 }
+
+.moved {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $success-ink;
+  background: $success-soft;
+  border-radius: $radius-md;
+  padding: 8px 12px;
+  button { font: inherit; font-size: 18px; line-height: 1; background: none; border: 0; color: inherit; cursor: pointer; padding: 0 4px; }
+}
+
+/* Thanh thả "chuyển ngày" nổi phía trên thanh dưới cùng trong lúc kéo */
+.dropBar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: linear-gradient(to top, rgba(20, 33, 61, 0.55), rgba(20, 33, 61, 0));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: rise 0.18s ease-out;
+}
+.dropTitle { font-size: 12px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); text-align: center; }
+.dropZones { display: flex; gap: 8px; max-width: 560px; width: 100%; margin: 0 auto; }
+
+@keyframes rise { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Hoạt ảnh gợi ý: thẻ đầu tiên nhấc lên, lắc nhẹ như đang được kéo */
+.demo { animation: demoLift 2.4s ease-in-out 0.3s 2; position: relative; z-index: 4; }
+@keyframes demoLift {
+  0%, 100% { transform: none; box-shadow: none; }
+  20% { transform: scale(1.03); box-shadow: 0 10px 24px rgba(20, 33, 61, 0.2); }
+  40% { transform: scale(1.03) translateY(46px); box-shadow: 0 10px 24px rgba(20, 33, 61, 0.2); }
+  60% { transform: scale(1.03) translateY(46px) rotate(-1deg); }
+  80% { transform: scale(1.03) translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .demo { animation: none; outline: 2px solid $accent; } }
+
+@media (min-width: 1024px) {
+  .dropBar { left: 248px; }
+}

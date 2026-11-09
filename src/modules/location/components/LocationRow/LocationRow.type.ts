@@ -9,4 +9,8 @@ export interface LocationRowProps {
   visible: boolean;
   directionsUrl?: string;
   onFocus?: () => void;
+  /** Bấm nút gọi (không truyền thì ẩn nút) */
+  onCall?: () => void;
+  /** Thành viên đã lưu số điện thoại chưa */
+  hasPhone?: boolean;
 }

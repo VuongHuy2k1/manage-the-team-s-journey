@@ -1,7 +1,7 @@
 export type IconName =
   | 'calendar' | 'check' | 'check-circle' | 'list' | 'coin' | 'navigate' | 'pin'
   | 'edit' | 'plus' | 'back' | 'close' | 'grip' | 'trash' | 'camera' | 'copy'
-  | 'arrow-right' | 'arrow-up-right' | 'arrow-down-right' | 'history' | 'user' | 'thumb-up' | 'thumb-down' | 'refresh' | 'lock' | 'users' | 'logout';
+  | 'arrow-right' | 'arrow-up-right' | 'arrow-down-right' | 'history' | 'user' | 'thumb-up' | 'thumb-down' | 'refresh' | 'lock' | 'users' | 'logout' | 'phone' | 'info' | 'globe';
 
 export interface IconProps {
   name: IconName;

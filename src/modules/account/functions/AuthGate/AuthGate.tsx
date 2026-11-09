@@ -7,7 +7,8 @@ import { useSyncMeta } from '@/core/hooks/useTripState.hook';
 import { tripStore } from '@/core/store/trip.store';
 import { LocationBeacon } from '@/modules/location';
 import { signOutAccount } from '@/core/api/account.api';
-import { Button, NavigationLock, Toast } from '@/modules/ui-core';
+import { Button, NavigationLock, Notifier, Toast, TripLoader } from '@/modules/ui-core';
+import { AppSidebar } from '../AppSidebar/AppSidebar';
 import styles from './AuthGate.module.scss';
 import type { AuthGateProps } from './AuthGate.type';
 
@@ -93,8 +94,8 @@ export function AuthGate({ children }: AuthGateProps) {
             ? 'Đang tải lịch trình…'
             : 'Đang tải danh sách thành viên…';
     return (
-      <div className={styles.center} role="status">
-        <p className={styles.text}>{stage}</p>
+      <div className={styles.center}>
+        <TripLoader label={stage} fullscreen={!slow} size={slow ? 200 : 300} />
         {slow && (
           <div className={styles.help}>
             <p className={styles.title}>Kết nối tới Firebase quá lâu</p>
@@ -121,8 +122,10 @@ export function AuthGate({ children }: AuthGateProps) {
           Tắt trình chặn quảng cáo / tiện ích cho trang này hoặc thử trình duyệt khác, rồi tải lại.
         </div>
       )}
+      <AppSidebar />
       {children}
       <NavigationLock />
+      <Notifier />
       <LocationBeacon />
       <Toast open={Boolean(meta.error)} message={meta.error ?? ''} />
     </>

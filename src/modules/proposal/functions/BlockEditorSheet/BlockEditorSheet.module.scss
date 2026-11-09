@@ -1,8 +1,27 @@
 @use 'tokens' as *;
 
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  // Ô giờ của iOS/Safari có bề rộng tối thiểu riêng: ép vừa cột để không đè sang ô Ngày
+  > * { min-width: 0; }
+}
+.time {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  &::-webkit-date-and-time-value { text-align: left; }
+}
 .select {
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   min-height: $touch;
   padding: 10px 12px;
   border: 1px solid $line;
@@ -14,3 +33,20 @@
 .addressRow { display: flex; gap: 6px; > :first-child { flex: 1; } }
 .pinned { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; color: $success-ink; font-size: 12px; }
 .unpin { font: inherit; background: none; border: 0; padding: 0 0 0 6px; color: $muted; text-decoration: underline; cursor: pointer; }
+
+.clash {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: $radius-md;
+  background: $accent-soft;
+  border: 1.5px solid $accent;
+  font-size: 13px;
+  line-height: 1.45;
+  &[data-asked] { animation: nudge 0.35s ease-in-out; }
+}
+.clashText { color: $ink; }
+.clashActions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.clashOk { font-size: 12px; color: $muted; }
+@keyframes nudge { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }

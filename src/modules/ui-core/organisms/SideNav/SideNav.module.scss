@@ -1,0 +1,48 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.side { display: none; }
+
+@media (min-width: 1024px) {
+  .side {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 30;
+    width: 248px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px 14px 18px;
+    background: $primary;
+    color: #fff;
+    overflow-y: auto;
+  }
+}
+.header { padding: 0 8px; }
+.nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.item {
+  @include focus-ring;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: #dde3fa;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.15s ease;
+  &:hover { background: rgba(255, 255, 255, 0.12); transform: translateX(2px); }
+}
+.active {
+  background: #fff;
+  color: $primary;
+  &:hover { background: #fff; transform: none; }
+}
+.label { flex: 1; }
+.badge { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: $yellow; color: $ink; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.footer { border-top: 1px solid rgba(255, 255, 255, 0.18); padding-top: 14px; }

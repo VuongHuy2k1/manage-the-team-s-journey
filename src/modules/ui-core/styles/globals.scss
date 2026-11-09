@@ -1,36 +1,41 @@
 :root {
-  --c-primary: #1e55d8;
-  --c-primary-strong: #1a47b8;
-  --c-primary-soft: #e3ecff;
-  --c-primary-ink: #1f4fbf;
-  --c-accent: #ff8a1f;
-  --c-accent-soft: #fff1dc;
-  --c-accent-ink: #3a1f00;
+  --c-primary: #25389a;
+  --c-primary-strong: #1b2a78;
+  --c-primary-soft: #e9edfb;
+  --c-primary-ink: #25389a;
+  --c-accent: #f36f21;
+  --c-accent-soft: #fff1e6;
+  --c-accent-ink: #7a3a10;
   --c-warn-ink: #a14600;
-  --c-success: #0e7c60;
-  --c-success-soft: #e6f7f1;
-  --c-success-ink: #0f6b57;
-  --c-danger: #a11d1d;
-  --c-danger-soft: #fde4e4;
+  --c-success: #12a150;
+  --c-success-soft: #e6f6ec;
+  --c-success-ink: #0b7a3b;
+  --c-danger: #d92d20;
+  --c-danger-soft: #fdecea;
 
-  --c-bg: #f3f6fd;
+  --c-bg: #f4f5f9;
   --c-surface: #ffffff;
-  --c-ink: #14213d;
-  --c-muted: #56627e;
-  --c-line: #dce3f2;
-  --c-line-soft: #e8edf7;
-  --c-subtle: #a3aec7;
+  --c-ink: #1f2533;
+  --c-muted: #667085;
+  --c-line: #e4e7ec;
+  --c-line-soft: #f2f4f7;
+  --c-subtle: #98a2b3;
   --c-on-primary: #ffffff;
-  --c-on-primary-soft: #eaf0ff;
+  --c-on-primary-soft: #c9d2f5;
   --c-focus: #ffa31a;
+  /* Vàng: nút phụ, nhãn vai trò, huy hiệu */
+  --c-yellow: #ffc93c;
+  --c-yellow-strong: #f5b800;
+  --c-yellow-soft: #fff7db;
+  --c-yellow-ink: #5c4300;
   --c-scrim: rgba(20, 33, 61, 0.55);
 
   --c-food-bg: #ffebd6;
   --c-food-ink: #a14600;
   --c-place-bg: #ddf4ee;
   --c-place-ink: #0f6b57;
-  --c-move-bg: #e3ecff;
-  --c-move-ink: #1f4fbf;
+  --c-move-bg: #e7f4fd;
+  --c-move-ink: #1569b5;
   --c-rest-bg: #eee8fb;
   --c-rest-ink: #5b3fa8;
 
@@ -92,3 +97,59 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Hiệu ứng chung ---------- */
+
+/* Mỗi lần chuyển trang: nội dung trượt nhẹ lên */
+/* fill-mode backwards: xong hiệu ứng thì trả lại transform cho kéo thả / vị trí fixed */
+main { animation: page-in 0.28s ease-out backwards; }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Danh sách: từng dòng hiện lần lượt */
+main ul > li { animation: item-in 0.32s ease-out backwards; }
+main ul > li:nth-child(2) { animation-delay: 0.03s; }
+main ul > li:nth-child(3) { animation-delay: 0.06s; }
+main ul > li:nth-child(4) { animation-delay: 0.09s; }
+main ul > li:nth-child(5) { animation-delay: 0.12s; }
+main ul > li:nth-child(6) { animation-delay: 0.15s; }
+main ul > li:nth-child(n + 7) { animation-delay: 0.18s; }
+@keyframes item-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* Ô tick: nảy nhẹ khi đánh dấu */
+input[type='checkbox']:checked { animation: check-pop 0.28s ease-out; }
+@keyframes check-pop { 50% { transform: scale(1.25); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Máy tính: lề rộng hơn, chừa chỗ cho thanh điều hướng bên trái */
+@media (min-width: 1024px) {
+  body:has([data-sidenav]) { padding-left: 248px; }
+  main { padding-left: 24px !important; padding-right: 24px !important; }
+}
+
+/* ---------- Màn chờ (TripLoader): hình nhúng dạng markup nên dùng class toàn cục ---------- */
+
+.tl-globe{transform-box:view-box;transform-origin:160px 160px;animation:tl-globe 14s linear infinite}
+.tl-mark{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);animation:tl-pop 14s ease-in-out infinite}
+.tl-van{transform-box:fill-box;transform-origin:50% 100%;animation:tl-bob .42s ease-in-out infinite alternate}
+.tl-wheel{transform-box:fill-box;transform-origin:center;animation:tl-spin .45s linear infinite}
+.tl-cloud{animation:tl-drift 9s ease-in-out infinite alternate}
+.tl-lm-names{position:relative;height:22px;width:100%}
+.tl-lm-name{position:absolute;left:0;right:0;opacity:0;animation:tl-name 14s ease-in-out infinite}
+.tl-m0,.tl-n0{animation-delay:-7.0s}
+.tl-m1,.tl-n1{animation-delay:-4.67s}
+.tl-m2,.tl-n2{animation-delay:-2.33s}
+.tl-m3,.tl-n3{animation-delay:0.0s}
+.tl-m4,.tl-n4{animation-delay:-11.67s}
+.tl-m5,.tl-n5{animation-delay:-9.33s}
+
+@keyframes tl-globe{to{transform:rotate(-360deg)}}
+@keyframes tl-pop{0%,26%{transform:scale(0)}30%{transform:scale(1.18)}33%,44%{transform:scale(1)}47.5%,100%{transform:scale(0)}}
+@keyframes tl-name{0%,31%{opacity:0;transform:translateY(6px)}33.5%,43%{opacity:1;transform:none}45.5%,100%{opacity:0;transform:translateY(-6px)}}
+@keyframes tl-bob{from{transform:translateY(0)}to{transform:translateY(-2.5px)}}
+@keyframes tl-spin{to{transform:rotate(360deg)}}
+@keyframes tl-drift{from{transform:translateX(-8px)}to{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){.tl-globe,.tl-van,.tl-wheel,.tl-cloud,.tl-lm-name,.tl-mark{animation:none}.tl-mark{transform:none}.tl-n0{opacity:1}}
+

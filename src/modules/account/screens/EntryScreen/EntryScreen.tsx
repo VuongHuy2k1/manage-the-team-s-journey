@@ -2,7 +2,7 @@
 
 import { TRIP } from '@/core/config/trip.config';
 import { RoleCard } from '@/modules/member';
-import { Button, FormField, Icon, PinInput } from '@/modules/ui-core';
+import { Button, FormField, Icon, PinInput, TripLoader } from '@/modules/ui-core';
 import { GoogleButton } from '../../components/GoogleButton/GoogleButton';
 import { InAppBrowserNotice } from '../../components/InAppBrowserNotice/InAppBrowserNotice';
 import { ProfileForm } from '../../functions/ProfileForm/ProfileForm';
@@ -16,9 +16,9 @@ export function EntryScreen() {
     <div className={styles.screen}>
       <header className={styles.hero}>
         <svg className={styles.hills} viewBox="0 0 390 120" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
-          <path d="M0 120 L80 70 L140 96 L220 40 L290 84 L340 58 L390 80 L390 120 Z" fill="#2E66E6" />
-          <path d="M180 120 L210 78 L240 120 Z M236 120 L262 86 L288 120 Z M300 120 L328 72 L356 120 Z" fill="#1A47B8" />
-          <circle cx="330" cy="32" r="14" fill="#FFA31A" />
+          <path d="M0 120 L80 70 L140 96 L220 40 L290 84 L340 58 L390 80 L390 120 Z" fill="#FFFFFF" opacity="0.07" />
+          <path d="M180 120 L210 78 L240 120 Z M236 120 L262 86 L288 120 Z M300 120 L328 72 L356 120 Z" fill="#FFFFFF" opacity="0.1" />
+          <circle cx="330" cy="32" r="14" fill="#FFC93C" />
         </svg>
         <span className={styles.eyebrow}>Sổ tay hành trình nhóm</span>
         <h1 className={styles.title}>{TRIP.name}</h1>
@@ -33,7 +33,7 @@ export function EntryScreen() {
           </>
         )}
 
-        {(e.step === 'loading' || e.step === 'done') && <p className={styles.hint} role="status">Đang kiểm tra tài khoản…</p>}
+        {(e.step === 'loading' || e.step === 'done') && <TripLoader fullscreen label="Đang kiểm tra tài khoản…" />}
 
         {e.step === 'role' && (
           <>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BottomSheet, Button, FormField, Input, useDisclosure } from '@/modules/ui-core';
+import { BottomSheet, Button, FormField, Input, useDisclosure, celebrate, notify } from '@/modules/ui-core';
 import { useApprove } from '../../hooks/useApprove.hook';
 import styles from './ApproveActions.module.scss';
 import type { ApproveActionsProps } from './ApproveActions.type';
@@ -16,7 +16,7 @@ export function ApproveActions({ requestId, title }: ApproveActionsProps) {
     <>
       <div className={styles.row}>
         <Button size="lg" variant="danger" onClick={sheet.open}>Từ chối</Button>
-        <Button size="lg" variant="primary" block onClick={() => approve(requestId)} loadingText="Đang duyệt…">Duyệt & cập nhật lịch</Button>
+        <Button size="lg" variant="primary" block onClick={async () => { if (await approve(requestId)) { celebrate({ count: 26 }); notify('Đã duyệt, lịch trình đã cập nhật'); } }} loadingText="Đang duyệt…">Duyệt & cập nhật lịch</Button>
       </div>
       <BottomSheet
         open={sheet.isOpen}

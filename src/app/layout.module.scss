@@ -14,3 +14,8 @@
 @media (min-width: 520px) {
   .app { box-shadow: 0 0 0 1px $line, 0 20px 60px rgba(20, 33, 61, 0.08); }
 }
+
+/* Máy tính: chừa chỗ cho thanh điều hướng bên trái, nội dung rộng hơn */
+@media (min-width: 1024px) {
+  .app { max-width: 920px; box-shadow: none; }
+}

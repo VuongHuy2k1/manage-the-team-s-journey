@@ -9,4 +9,6 @@ export interface MemberRowProps {
   meta?: string;
   action?: ReactNode;
   muted?: boolean;
+  /** Bấm vào tên / ảnh (ví dụ để gọi) */
+  onSelect?: () => void;
 }

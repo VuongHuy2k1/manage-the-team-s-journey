@@ -93,7 +93,7 @@ export function PlacePicker({ open, onClose, onPick, initial }: PlacePickerProps
         <div ref={el} className={styles.map} />
         <span className={styles.pin} aria-hidden="true">
           <svg width="40" height="48" viewBox="0 0 40 48">
-            <path d="M20 47s16-15.4 16-27A16 16 0 0 0 4 20c0 11.6 16 27 16 27z" fill="#1E55D8" stroke="#fff" strokeWidth="3" />
+            <path d="M20 47s16-15.4 16-27A16 16 0 0 0 4 20c0 11.6 16 27 16 27z" fill="#25389A" stroke="#fff" strokeWidth="3" />
             <circle cx="20" cy="20" r="6" fill="#fff" />
           </svg>
         </span>

@@ -51,6 +51,12 @@ export function useDraft() {
     [blocks, commit],
   );
 
+  /** Kéo thẻ sang ngày khác: giữ nguyên giờ, xếp theo giờ trong ngày mới */
+  const moveToDay = useCallback(
+    (blockId: string, day: DayNumber) => commit(blocks.map((b) => (b.id === blockId ? { ...b, day } : b))),
+    [blocks, commit],
+  );
+
   return {
     memberCount: n,
     blocks,
@@ -70,6 +76,7 @@ export function useDraft() {
     removeBlock,
     restoreBlock,
     reorderDay,
+    moveToDay,
     discard: () => discardDraft(me),
   };
 }

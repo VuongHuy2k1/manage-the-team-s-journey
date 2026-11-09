@@ -11,6 +11,8 @@ export interface Member {
   color: string;
   /** Ảnh đại diện đã nén (data URL), null nếu chưa có */
   avatar: string | null;
+  /** Số điện thoại để cả nhóm gọi khi cần */
+  phone?: string;
   role: MemberRole;
   /** Bị nhóm trưởng xoá khỏi nhóm */
   removed: boolean;

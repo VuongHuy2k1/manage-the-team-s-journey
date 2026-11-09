@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AmountInput, BottomSheet, Button, FormField, Input, MoneyText, type AmountUnit } from '@/modules/ui-core';
+import { AmountInput, BottomSheet, Button, FormField, Input, MoneyText, type AmountUnit, notify } from '@/modules/ui-core';
 import styles from './PlannedCostSheet.module.scss';
 import type { PlannedCostSheetProps } from './PlannedCostSheet.type';
 
@@ -30,7 +30,10 @@ export function PlannedCostSheet({ open, onClose, item, memberCount, onSave, onD
     setBusy(true);
     const ok = await onSave({ title, amount: total, note });
     setBusy(false);
-    if (ok) onClose();
+    if (ok) {
+      notify(item ? 'Đã sửa khoản dự tính' : 'Đã thêm khoản dự tính');
+      onClose();
+    }
   };
 
   return (

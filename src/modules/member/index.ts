@@ -2,6 +2,7 @@ export { MemberRow } from './components/MemberRow/MemberRow';
 export { RoleCard } from './components/RoleCard/RoleCard';
 export { RoleTag } from './components/RoleTag/RoleTag';
 export { AccountMenu } from './functions/AccountMenu/AccountMenu';
+export { CallMemberDialog } from './functions/CallMemberDialog/CallMemberDialog';
 export { LeaderOnly } from './functions/LeaderOnly/LeaderOnly';
 export { MemberList } from './functions/MemberList/MemberList';
 export { MembersScreen } from './screens/MembersScreen/MembersScreen';

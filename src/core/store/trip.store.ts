@@ -10,6 +10,12 @@ import { createEmptyState, createSeedTripDoc } from '../data/seed.data';
 import { getFirebase, isFirebaseConfigured } from '../firebase/firebase.client';
 import { PATHS } from '../firebase/firebase.paths';
 
+/** Tên và dòng mô tả chuyến (nhóm trưởng sửa được) */
+export interface TripInfo {
+  name: string;
+  subtitle: string;
+}
+
 export interface TripState {
   schemaVersion: 1;
   /** Thành viên đang trong nhóm */
@@ -28,12 +34,14 @@ export interface TripState {
   completions: Record<string, Completion>;
   pendingCompletions: PendingCompletion[];
   fund: Fund;
+  /** Chưa sửa lần nào thì dùng giá trị mặc định trong trip.config */
+  info?: TripInfo;
 }
 
 /** Phần dữ liệu chung lưu ở document trips/{tripId} */
-export type TripDoc = Pick<TripState, 'schemaVersion' | 'schedule' | 'versions' | 'requests' | 'completions' | 'pendingCompletions' | 'fund'>;
+export type TripDoc = Pick<TripState, 'schemaVersion' | 'schedule' | 'versions' | 'requests' | 'completions' | 'pendingCompletions' | 'fund' | 'info'>;
 
-const DOC_KEYS: (keyof TripDoc)[] = ['schemaVersion', 'schedule', 'versions', 'requests', 'completions', 'pendingCompletions', 'fund'];
+const DOC_KEYS: (keyof TripDoc)[] = ['schemaVersion', 'schedule', 'versions', 'requests', 'completions', 'pendingCompletions', 'fund', 'info'];
 
 export interface SyncMeta {
   configured: boolean;
@@ -91,6 +99,7 @@ function toMember(id: string, data: Record<string, unknown>): Member {
     name: String(data.name ?? 'Thành viên'),
     color: String(data.color ?? '#A3AEC7'),
     avatar: (data.avatar as string | null) ?? null,
+    phone: typeof data.phone === 'string' && data.phone ? data.phone : undefined,
     role: data.role === 'leader' ? 'leader' : 'member',
     removed: Boolean(data.removed),
     joinedAt: String(data.joinedAt ?? ''),

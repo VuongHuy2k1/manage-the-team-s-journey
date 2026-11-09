@@ -13,13 +13,13 @@ import { cx } from '../../utils/classNames.utils';
 import styles from './AppHeader.module.scss';
 import type { AppHeaderProps } from './AppHeader.type';
 
-export function AppHeader({ title, eyebrow, variant = 'brand', backHref, aside, children, decorated = false }: AppHeaderProps) {
+export function AppHeader({ title, eyebrow, variant = 'brand', backHref, aside, children, decorated = false, titleAction }: AppHeaderProps) {
   return (
     <header className={cx(styles.header, styles[variant])}>
       {decorated && (
-        <svg className={styles.hills} viewBox="0 0 390 80" preserveAspectRatio="xMaxYMax meet" aria-hidden="true">
-          <path d="M140 80 L210 34 L250 60 L300 22 L350 56 L390 40 L390 80 Z" fill="currentColor" />
-          <circle cx="352" cy="22" r="10" fill="#FFA31A" />
+        <svg className={styles.hills} viewBox="0 0 180 140" aria-hidden="true">
+          <circle cx="110" cy="60" r="70" fill="currentColor" opacity="0.07" />
+          <circle cx="150" cy="112" r="40" fill="currentColor" opacity="0.07" />
         </svg>
       )}
       <div className={styles.top}>
@@ -30,7 +30,14 @@ export function AppHeader({ title, eyebrow, variant = 'brand', backHref, aside, 
         )}
         <div className={styles.titles}>
           {eyebrow && <span className={styles.eyebrow}>{eyebrow}</span>}
-          <h1 className={styles.title}>{title}</h1>
+          {titleAction ? (
+            <span className={styles.titleRow}>
+              <h1 className={styles.title}>{title}</h1>
+              {titleAction}
+            </span>
+          ) : (
+            <h1 className={styles.title}>{title}</h1>
+          )}
         </div>
         {aside && <div className={styles.aside}>{aside}</div>}
       </div>

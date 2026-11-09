@@ -46,6 +46,10 @@ service cloud.firestore {
             || request.resource.data.avatar == null
             || (request.resource.data.avatar is string && request.resource.data.avatar.size() < 300000);
         }
+        function validPhone() {
+          return !('phone' in request.resource.data)
+            || (request.resource.data.phone is string && request.resource.data.phone.size() <= 20);
+        }
         function validName() {
           return request.resource.data.name is string
             && request.resource.data.name.size() > 0
@@ -59,12 +63,12 @@ service cloud.firestore {
           && request.resource.data.role == 'member'
           && request.resource.data.removed == false
           && request.resource.data.email is string
-          && validName() && validAvatar();
+          && validName() && validAvatar() && validPhone();
 
         allow update: if
-          // Tự sửa tên, ảnh, màu
+          // Tự sửa tên, ảnh, màu, số điện thoại
           (signedIn() && request.auth.uid == uid && resource.data.removed == false
-            && changed().hasOnly(['name', 'avatar', 'color']) && validName() && validAvatar())
+            && changed().hasOnly(['name', 'avatar', 'color', 'phone']) && validName() && validAvatar() && validPhone())
           // Nhận quyền nhóm trưởng: chỉ khi document leaders/{uid} được tạo cùng lúc (đã qua kiểm tra mã)
           || (signedIn() && request.auth.uid == uid && resource.data.removed == false
             && changed().hasOnly(['role']) && request.resource.data.role == 'leader'

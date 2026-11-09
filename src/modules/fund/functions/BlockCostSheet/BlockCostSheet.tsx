@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { positionText } from '@/modules/schedule/utils/schedule.utils';
-import { AmountInput, BottomSheet, Button, ConfirmDialog, FormField, Input, MoneyText, type AmountUnit } from '@/modules/ui-core';
+import { AmountInput, BottomSheet, Button, ConfirmDialog, FormField, Input, MoneyText, type AmountUnit, notify } from '@/modules/ui-core';
 import styles from './BlockCostSheet.module.scss';
 import type { BlockCostSheetProps } from './BlockCostSheet.type';
 
@@ -39,7 +39,10 @@ export function BlockCostSheet({ open, onClose, block, memberCount, onSave, onDe
       costLabel,
     });
     setBusy(false);
-    if (ok) onClose();
+    if (ok) {
+      notify('Đã cập nhật chi phí');
+      onClose();
+    }
   };
 
   return (

@@ -2,3 +2,13 @@
 @use 'mixins' as *;
 
 .main { @include gutter; flex: 1; padding-top: 12px; padding-bottom: 24px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Máy tính: xếp thẻ thành 2 cột kiểu bảng tin */
+@media (min-width: 1024px) {
+  .main {
+    display: block;
+    columns: 2;
+    column-gap: 14px;
+    > * { break-inside: avoid; margin-bottom: 14px; }
+  }
+}
